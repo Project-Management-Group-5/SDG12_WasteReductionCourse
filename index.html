@@ -3296,54 +3296,74 @@ function restart() {
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title"><span class="card-icon">💡</span> Key Takeaway</div>
-      <p style="font-size:15px;line-height:1.8;color:var(--ink-light)"><strong style="color:var(--green-dark)">Small actions by many employees = big impact.</strong> When people in an office all make one change, and those changes are tracked, visible, and celebrated, something remarkable happens. Culture shifts — and culture shifts are how organisations achieve their sustainability goals.</p>
+    <!-- CASE STUDY VIDEOS SUB-SECTION -->
+    <div class="card" style="margin-top:8px">
+      <div class="card-title"><span class="card-icon">&#127909;</span> Case Study Videos</div>
+      <p style="font-size:14px;color:var(--ink-light);line-height:1.7;margin-bottom:20px">Watch the case study video for each organisation. Use the tabs to switch between HSBC and Wexford County Council.</p>
+
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+        <div id="csv-tab-0" onclick="switchCaseVideo(0)"
+          style="padding:9px 22px;border-radius:999px;border:2px solid var(--green-dark);background:var(--green-dark);color:var(--cream);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s">
+          &#127970; HSBC
+        </div>
+        <div id="csv-tab-1" onclick="switchCaseVideo(1)"
+          style="padding:9px 22px;border-radius:999px;border:2px solid rgba(0,0,0,0.12);background:transparent;color:var(--ink-light);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s">
+          &#127963; Wexford County Council
+        </div>
+      </div>
+
+      <!-- HSBC panel -->
+      <div id="csv-panel-0" style="display:block">
+        <div style="background:var(--green-mist);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;border-left:4px solid var(--green-mid)">
+          <strong style="color:var(--green-dark);font-size:14px">&#127970; HSBC &mdash; Waste Reduction Through Employee Engagement</strong>
+          <p style="font-size:13px;color:var(--ink-light);margin-top:4px;line-height:1.6">Watch how HSBC&rsquo;s sustainability campaign achieved a 60% reduction in total office waste and a 64% drop in paper waste.</p>
+        </div>
+        <div style="border-radius:var(--radius);overflow:hidden;background:#000;box-shadow:var(--shadow-md)">
+          <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000;box-shadow:var(--shadow-md)">
+          <iframe
+            src="https://www.youtube.com/embed/4q9-8c8nA2U?si=m-FyWi5QNUNkkrvU"
+            title="Going Paperless - Wexford County Council"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)">
+          </iframe>
+        </div>
+        </div>
+        <div style="margin-top:12px;background:#fff8e7;border:1px solid #f4a261;border-radius:var(--radius-sm);padding:12px 16px;font-size:12px;color:#7a4a00;line-height:1.7">
+          <strong>&#128204; Video not playing?
+          <br><a href="https://canva.link/n4tuocgdvm81cgr" target="_blank" style="color:var(--earth);font-weight:600;text-decoration:underline">Open HSBC video in Canva &#8599;</a>
+        </div>
+      </div>
+
+      <!-- Wexford panel -->
+      <div id="csv-panel-1" style="display:none">
+        <div style="background:var(--green-mist);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;border-left:4px solid var(--green-mid)">
+          <strong style="color:var(--green-dark);font-size:14px">&#127963; Wexford County Council &mdash; Going Paperless</strong>
+          <p style="font-size:13px;color:var(--ink-light);margin-top:4px;line-height:1.6">How Wexford County Council went fully digital, saving 59,000 sheets of paper and &euro;3,500 in costs annually.</p>
+        </div>
+        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000;box-shadow:var(--shadow-md)">
+          <iframe
+            src="https://www.youtube.com/"
+            title="Going Paperless - Wexford County Council"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)">
+          </iframe>
+        </div>
+        <div class="info-box" style="margin-top:12px">
+          <strong>&#127963; Going Paperless in the Irish Public Sector</strong> &mdash; Digital transformation reducing paper, cutting costs, and improving service delivery.
+          <br><em style="font-size:11px;opacity:0.7">Source: EPA Ireland (2020)</em>
+        </div>
+      </div>
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="card-icon">🎬</span> Video: SDG 12 in Action</div>
-      <p style="font-size:14px;color:var(--ink-light);line-height:1.7;margin-bottom:20px">Watch how organisations around the world are implementing responsible consumption and production practices aligned with SDG 12.</p>
-      <div class="video-tabs" style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-        <div class="video-tab" onclick="switchVideo(0,this)" style="padding:8px 18px;border-radius:999px;border:2px solid var(--green-dark);background:var(--green-dark);color:var(--cream);font-size:13px;font-weight:600;cursor:pointer">📋 Case Study</div>
-        <div class="video-tab" onclick="switchVideo(1,this)" style="padding:8px 18px;border-radius:999px;border:2px solid rgba(0,0,0,0.1);font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-light)">🏛️ Wexford Council</div>
-        <div class="video-tab" onclick="switchVideo(2,this)" style="padding:8px 18px;border-radius:999px;border:2px solid rgba(0,0,0,0.1);font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-light)">🌍 UN SDG 12 Overview</div>
-        <div class="video-tab" onclick="switchVideo(3,this)" style="padding:8px 18px;border-radius:999px;border:2px solid rgba(0,0,0,0.1);font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-light)">♻️ Circular Economy</div>
-      </div>
-      <div id="video-panel-0" class="video-panel" style="display:block">
-        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000">
-          <iframe src="https://www.youtube.com/embed/HD5vi9QgmbU" title="Case Study" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)"></iframe>
-        </div>
-        <div class="info-box" style="margin-top:12px">
-          <strong>📋 Case Study in Action</strong> — A real-world example demonstrating how organisations apply sustainable practices and achieve measurable outcomes — directly complementing the case studies covered in this section.
-        </div>
-      </div>
-      <div id="video-panel-1" class="video-panel" style="display:none">
-        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000">
-          <iframe src="https://www.youtube.com/embed/59Gxm4_0keI" title="Going Paperless — Irish Government Case Study" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)"></iframe>
-        </div>
-        <div class="info-box" style="margin-top:12px">
-          <strong>🏛️ Going Paperless in the Irish Public Sector</strong> — How public organisations reduced paper consumption, cut costs, and improved service delivery through digital transformation. Directly relevant to the Wexford County Council case study above.
-        </div>
-      </div>
-      <div id="video-panel-2" class="video-panel" style="display:none">
-        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000">
-          <iframe src="https://www.youtube.com/embed/7V8oFI4GYMY" title="UN SDG 12 — Responsible Consumption and Production" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)"></iframe>
-        </div>
-        <div class="info-box" style="margin-top:12px">
-          <strong>🌍 UN SDG 12 Explained</strong> — The United Nations outlines why responsible consumption and production is central to a sustainable future, and what it means for businesses, governments, and individuals.
-        </div>
-      </div>
-      <div id="video-panel-3" class="video-panel" style="display:none">
-        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000">
-          <iframe src="https://www.youtube.com/embed/zCRKvDyyHmI" title="The Circular Economy Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)"></iframe>
-        </div>
-        <div class="info-box" style="margin-top:12px">
-          <strong>♻️ The Circular Economy Explained</strong> — Understand how the shift from a linear 'take-make-dispose' model to a circular economy connects directly to the waste reduction practices covered in this course.
-        </div>
-      </div>
-      <p style="font-size:11px;color:var(--ink-muted);margin-top:10px;font-style:italic">Videos sourced from public YouTube channels. Ensure your device audio is enabled for the best experience.</p>
+      <div class="card-title"><span class="card-icon">&#128161;</span> Key Takeaway</div>
+      <p style="font-size:15px;line-height:1.8;color:var(--ink-light)"><strong style="color:var(--green-dark)">Small actions by many employees = big impact.</strong> When people in an office all make one change, and those changes are tracked, visible, and celebrated, something remarkable happens. Culture shifts — and culture shifts are how organisations achieve their sustainability goals.</p>
     </div>
+
 
     <div class="nav-btns">
       <button class="nav-btn nav-btn-prev" onclick="goTo('m3-actions')">← 10 Actions</button>
@@ -4900,6 +4920,23 @@ function roboShowTyping() {
 function roboRemoveTyping() {
   const el = document.getElementById('robo-typing-indicator');
   if (el) el.remove();
+}
+
+function switchCaseVideo(idx) {
+  const panels = document.querySelectorAll('[id^="csv-panel-"]');
+  const tabs   = document.querySelectorAll('[id^="csv-tab-"]');
+  panels.forEach((p, i) => { p.style.display = i === idx ? 'block' : 'none'; });
+  tabs.forEach((t, i) => {
+    if (i === idx) {
+      t.style.background  = 'var(--green-dark)';
+      t.style.color       = 'var(--cream)';
+      t.style.borderColor = 'var(--green-dark)';
+    } else {
+      t.style.background  = 'transparent';
+      t.style.color       = 'var(--ink-light)';
+      t.style.borderColor = 'rgba(0,0,0,0.12)';
+    }
+  });
 }
 
 function roboSend() {
