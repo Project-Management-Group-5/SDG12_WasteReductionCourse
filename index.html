@@ -413,15 +413,16 @@ body {
   font-size:13px; line-height:1.6;
   padding-left:40px;
   color:inherit;
-  opacity:0.8;
+  opacity:0.85;
 }
 .hierarchy-item.expanded .h-detail { max-height:120px; }
-.h-1 { background:#d8f3dc; color:var(--green-dark); } .h-1 .h-tag { background:var(--green-dark); color:var(--cream); }
-.h-2 { background:#b7e4c7; color:var(--green-dark); } .h-2 .h-tag { background:var(--green-mid); color:var(--cream); }
-.h-3 { background:#95d5b2; color:var(--green-dark); } .h-3 .h-tag { background:var(--green-mid); color:var(--cream); }
-.h-4 { background:#74c69d; color:var(--green-dark); }
-.h-5 { background:#52b788; color:white; }
-.h-6 { background:#e63946; color:white; } .h-6 .h-tag { background:rgba(255,255,255,0.2); color:white; }
+/* Hierarchy: darkest green (Prevention=best) → lightest green (Recovery) → red (Disposal=worst) */
+.h-1 { background:#1a3d2b; color:#d8f3dc; } .h-1 .h-rank { color:rgba(255,255,255,0.25); } .h-1 .h-tag { background:rgba(255,255,255,0.18); color:#d8f3dc; }
+.h-2 { background:#2d6a4f; color:#d8f3dc; } .h-2 .h-rank { color:rgba(255,255,255,0.25); } .h-2 .h-tag { background:rgba(255,255,255,0.15); color:#d8f3dc; }
+.h-3 { background:#52b788; color:#1a3d2b; } .h-3 .h-rank { color:rgba(26,61,43,0.3); } .h-3 .h-tag { background:rgba(26,61,43,0.18); color:#1a3d2b; }
+.h-4 { background:#95d5b2; color:#1a3d2b; } .h-4 .h-rank { color:rgba(26,61,43,0.3); } .h-4 .h-tag { background:rgba(26,61,43,0.15); color:#1a3d2b; }
+.h-5 { background:#d8f3dc; color:#1a3d2b; } .h-5 .h-rank { color:rgba(26,61,43,0.3); } .h-5 .h-tag { background:rgba(26,61,43,0.12); color:#2d6a4f; }
+.h-6 { background:#e63946; color:white; } .h-6 .h-rank { color:rgba(255,255,255,0.3); } .h-6 .h-tag { background:rgba(255,255,255,0.2); color:white; }
 
 /* ===================== SCENARIO STEPS ===================== */
 .scenario-nav {
@@ -1693,73 +1694,13 @@ body {
   <div class="content-body">
 
     <div class="card">
-      <div class="ws-tabs">
-        <div class="ws-tab active" onclick="switchWS('paper',this)">📄 Paper</div>
-        <div class="ws-tab" onclick="switchWS('packaging',this)">📦 Packaging</div>
-        <div class="ws-tab" onclick="switchWS('ewaste',this)">💻 E-Waste</div>
-        <div class="ws-tab" onclick="switchWS('food',this)">🍎 Food</div>
-        <div class="ws-tab" onclick="switchWS('energy',this)">⚡ Energy</div>
+      <div class="card-title"><span class="card-icon">🎬</span> Office Waste Streams in Action</div>
+      <p style="font-size:14px;color:var(--ink-light);line-height:1.7;margin-bottom:20px">Watch this short film to see how the five key office waste streams — paper, packaging, e-waste, food, and energy — are generated in real workplaces, and what practical steps organisations are taking to reduce them.</p>
+      <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000;margin-bottom:16px">
+        <iframe src="https://www.youtube.com/embed/JCg5pt1OHhI" title="Office Waste Streams — How offices generate waste and what to do about it" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-sm)"></iframe>
       </div>
-
-      <div id="ws-paper" class="ws-panel active">
-        <div class="ws-header"><div class="ws-icon-big">📄</div><div><h3 style="font-size:20px;color:var(--green-dark)">Paper Waste</h3><p style="font-size:13px;color:var(--ink-muted)">One of the largest office waste streams</p></div></div>
-        <div class="ws-stat">📊 Typical offices use <strong>~20 reams of paper per employee per year</strong>. Efficient offices operate with only <strong>7 reams per person</strong> — a 65% reduction is achievable.</div>
-        <p style="font-size:14px;line-height:1.7;color:var(--ink-light);margin-bottom:12px">Common sources: printing reports, photocopying, meeting materials, draft documents.</p>
-        <div class="ws-actions">
-          <div class="ws-action-item">Default printer to double-sided (duplex) printing</div>
-          <div class="ws-action-item">Share documents digitally — email, cloud, screen sharing</div>
-          <div class="ws-action-item">Use cloud storage instead of physical filing</div>
-          <div class="ws-action-item">Review documents on screen before printing</div>
-          <div class="ws-action-item">Use digital signatures — eliminate print-sign-scan cycle</div>
-        </div>
-      </div>
-
-      <div id="ws-packaging" class="ws-panel">
-        <div class="ws-header"><div class="ws-icon-big">📦</div><div><h3 style="font-size:20px;color:var(--green-dark)">Packaging &amp; Single-Use Items</h3><p style="font-size:13px;color:var(--ink-muted)">Used briefly, lingers for decades</p></div></div>
-        <div class="ws-stat">☕ A single office worker using one disposable cup per day generates <strong>250 cups per year</strong>. For a team of 20, that's <strong>5,000 cups annually</strong> — just from coffee.</div>
-        <p style="font-size:14px;line-height:1.7;color:var(--ink-light);margin-bottom:12px">Common sources: coffee cups, plastic bottles, snack wrappers, delivery packaging, cardboard boxes.</p>
-        <div class="ws-actions">
-          <div class="ws-action-item">Bring a reusable mug, water bottle, and lunchbox</div>
-          <div class="ws-action-item">Buy office supplies in bulk to reduce packaging</div>
-          <div class="ws-action-item">Recycling cardboard delivery boxes correctly</div>
-          <div class="ws-action-item">Avoid single-use cutlery — keep reusable sets at your desk</div>
-        </div>
-      </div>
-
-      <div id="ws-ewaste" class="ws-panel">
-        <div class="ws-header"><div class="ws-icon-big">💻</div><div><h3 style="font-size:20px;color:var(--green-dark)">Electronic Waste (E-Waste)</h3><p style="font-size:13px;color:var(--ink-muted)">Valuable, hazardous, and often overlooked</p></div></div>
-        <div class="ws-stat">⚠️ E-waste contains <strong>copper, gold, and rare earth metals</strong> — but also hazardous substances like lead and mercury. Improper disposal contaminates soil and water supplies.</div>
-        <p style="font-size:14px;line-height:1.7;color:var(--ink-light);margin-bottom:12px">Common items: old laptops, phones, chargers, cables, keyboards, monitors, accessories.</p>
-        <div class="ws-actions">
-          <div class="ws-action-item">Repair equipment before discarding it</div>
-          <div class="ws-action-item">Donate usable devices to charities or CTC Cork</div>
-          <div class="ws-action-item">Use certified e-waste recycling programmes</div>
-          <div class="ws-action-item">Never place e-waste in general waste or recycling bins</div>
-        </div>
-      </div>
-
-      <div id="ws-food" class="ws-panel">
-        <div class="ws-header"><div class="ws-icon-big">🍎</div><div><h3 style="font-size:20px;color:var(--green-dark)">Food Waste</h3><p style="font-size:13px;color:var(--ink-muted)">A hidden contributor to greenhouse gases</p></div></div>
-        <div class="ws-stat">🌡️ Food waste decomposing in landfill produces <strong>methane</strong> — a greenhouse gas 25x more potent than CO₂ over 100 years. Office kitchens are a key source of avoidable food waste.</div>
-        <p style="font-size:14px;line-height:1.7;color:var(--ink-light);margin-bottom:12px">Common sources: office kitchens, staff lunches, company events, expired fridge items.</p>
-        <div class="ws-actions">
-          <div class="ws-action-item">Take only the food you need — avoid plate waste</div>
-          <div class="ws-action-item">Label food in shared fridges with dates</div>
-          <div class="ws-action-item">Compost organic waste where facilities allow</div>
-          <div class="ws-action-item">Coordinate catering quantities for events</div>
-        </div>
-      </div>
-
-      <div id="ws-energy" class="ws-panel">
-        <div class="ws-header"><div class="ws-icon-big">⚡</div><div><h3 style="font-size:20px;color:var(--green-dark)">Energy Waste</h3><p style="font-size:13px;color:var(--ink-muted)">The invisible office waste stream</p></div></div>
-        <div class="ws-stat">🌙 A monitor left on standby overnight uses approximately <strong>20 watts continuously</strong> — around <strong>60 kWh per year, per monitor, doing nothing</strong>. Multiply by your office headcount.</div>
-        <p style="font-size:14px;line-height:1.7;color:var(--ink-light);margin-bottom:12px">Common sources: computers left on, lights in empty rooms, inefficient heating, unused devices plugged in.</p>
-        <div class="ws-actions">
-          <div class="ws-action-item">Turn off monitor, PC, and lights when leaving</div>
-          <div class="ws-action-item">Enable power-saving settings on all devices</div>
-          <div class="ws-action-item">Unplug chargers when not in use</div>
-          <div class="ws-action-item">Advocate for occupancy-sensor lighting</div>
-        </div>
+      <div class="info-box">
+        <strong>As you watch, consider:</strong> which of the five waste streams is most visible in your own office? Make a mental note — you'll use this insight when building your personal action plan in Module 4.
       </div>
     </div>
 
@@ -1778,17 +1719,424 @@ body {
     <p>Follow Emma through her working day. At each moment, identify what she could do differently to reduce waste. Choose the best response.</p>
   </div>
   <div class="content-body">
-    <div class="card">
-      <div class="scenario-nav">
-        <div style="font-weight:700;color:var(--green-dark)">Scene <span id="sceneNum">1</span> of 4</div>
-        <div class="scenario-dots" id="sceneDots"></div>
+
+<style>
+/* ── EMMA ANIMATION STYLES ── */
+#emma-wrap{
+  width:100%;
+  background:linear-gradient(135deg,#1a3d2b 0%,#0d2518 100%);
+  border-radius:16px;
+  padding:28px 16px 16px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  font-family:'DM Sans',sans-serif;
+  margin-bottom:24px;
+}
+#emma-stage{
+  width:min(880px,100%);
+  background:#faf7f2;
+  border-radius:24px;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  overflow:hidden;
+  min-height:480px;
+}
+#emma-panel{
+  background:linear-gradient(180deg,#e8f5ee 0%,#d0eedd 100%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;
+  padding-bottom:16px;position:relative;overflow:hidden;
+}
+#emma-panel::before{
+  content:'';position:absolute;bottom:-50px;left:-50px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(82,183,136,0.1);
+}
+#emma-bubble{
+  position:absolute;top:16px;left:12px;right:12px;
+  background:white;border-radius:16px;
+  padding:12px 14px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.1);
+  font-size:13px;line-height:1.55;color:#1a1a1a;font-weight:500;
+  min-height:110px;
+  border:2px solid #b7e4c7;
+  transition:opacity 0.3s;
+}
+#emma-bubble::after{
+  content:'';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);
+  border:7px solid transparent;border-top-color:white;
+}
+#emma-bubble::before{
+  content:'';position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);
+  border:8px solid transparent;border-top-color:#b7e4c7;
+}
+#escene-badge{
+  position:absolute;top:16px;right:16px;
+  background:#1a3d2b;color:#faf7f2;
+  font-size:12px;font-weight:700;
+  padding:4px 12px;border-radius:999px;
+}
+#emma-char{position:relative;width:160px;height:260px;flex-shrink:0}
+.e-shadow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:12px;background:rgba(0,0,0,0.1);border-radius:50%}
+.e-shoe-l,.e-shoe-r{position:absolute;bottom:10px;width:30px;height:16px;background:#d4a0c0;border-radius:40% 60% 60% 40%}
+.e-shoe-l{left:36px}.e-shoe-r{right:36px;border-radius:60% 40% 40% 60%}
+.e-leg-l,.e-leg-r{position:absolute;bottom:22px;width:24px;height:60px;border-radius:12px 12px 5px 5px}
+.e-leg-l{left:48px;background:#457b9d}.e-leg-r{right:48px;background:#457b9d}
+.e-body{position:absolute;bottom:78px;left:50%;transform:translateX(-50%);width:80px;height:88px;background:#f4a261;border-radius:18px 18px 14px 14px}
+.e-body::after{content:'E';position:absolute;top:10px;left:50%;transform:translateX(-50%);font-size:24px;color:rgba(255,255,255,0.55);font-weight:900}
+.e-belt{position:absolute;bottom:82px;left:50%;transform:translateX(-50%);width:84px;height:10px;background:#c0781a;border-radius:4px}
+.e-arm-l,.e-arm-r{position:absolute;bottom:116px;width:22px;height:64px;background:#f4a261;border-radius:11px;transform-origin:top center;transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1)}
+.e-arm-l{left:20px;transform:rotate(12deg)}.e-arm-r{right:20px;transform:rotate(-12deg)}
+.e-hand-l,.e-hand-r{position:absolute;width:18px;height:18px;background:#f4c89a;border-radius:50%;bottom:-4px;left:2px}
+.e-hand-r{right:2px;left:auto}
+.e-neck{position:absolute;bottom:164px;left:50%;transform:translateX(-50%);width:18px;height:18px;background:#f4c89a;border-radius:4px}
+.e-head{position:absolute;bottom:174px;left:50%;transform:translateX(-50%);width:72px;height:70px;background:#f4c89a;border-radius:50% 50% 44% 44%;box-shadow:0 3px 10px rgba(0,0,0,0.08)}
+.e-hair{position:absolute;top:-8px;left:-3px;right:-3px;height:34px;background:#a0522d;border-radius:50% 50% 10% 10%}
+.e-hair::after{content:'';position:absolute;top:12px;left:8px;right:8px;height:10px;background:#7a3f22;border-radius:0 0 50% 50%}
+.e-eyes{position:absolute;top:26px;left:0;right:0;display:flex;justify-content:center;gap:14px}
+.e-eye{width:11px;height:11px;background:#333;border-radius:50%;position:relative;animation:eblink 4s infinite}
+.e-eye::after{content:'';position:absolute;top:2px;right:2px;width:3px;height:3px;background:white;border-radius:50%}
+@keyframes eblink{0%,47%,53%,100%{transform:scaleY(1)}50%{transform:scaleY(0.05)}}
+.e-brows{position:absolute;top:18px;left:0;right:0;display:flex;justify-content:center;gap:18px}
+.e-brow{width:12px;height:2.5px;background:#7a3f22;border-radius:2px;transition:transform 0.4s}
+.e-mouth{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:22px;height:10px;border-bottom:2.5px solid #c0706a;border-radius:0 0 50% 50%;transition:all 0.3s}
+.e-cheek-l,.e-cheek-r{position:absolute;top:36px;width:12px;height:9px;background:rgba(240,120,100,0.25);border-radius:50%}
+.e-cheek-l{left:5px}.e-cheek-r{right:5px}
+.e-nametag{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);background:#1a3d2b;color:#faf7f2;font-size:13px;font-weight:700;padding:3px 14px;border-radius:999px;white-space:nowrap}
+@keyframes emma-idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes emma-talk{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-3px) rotate(-1deg)}75%{transform:translateY(-2px) rotate(1deg)}}
+@keyframes ewave-l{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(-70deg)}}
+#emma-char.idle{animation:emma-idle 2.5s ease-in-out infinite}
+#emma-char.talking{animation:emma-talk 0.5s infinite}
+#emma-char.talking .e-arm-l{animation:ewave-l 0.6s infinite}
+#emma-char.talking .e-mouth{animation:emtalk 0.3s infinite alternate}
+@keyframes emtalk{from{height:7px;width:18px}to{height:12px;width:24px}}
+#econtent-panel{display:flex;flex-direction:column;padding:24px 28px 18px;background:#faf7f2}
+#escene-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+#escene-emoji-box{width:52px;height:52px;border-radius:14px;background:#d8f3dc;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;transition:all 0.3s}
+#escene-subtitle{font-size:11px;color:#2d6a4f;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
+#escene-title{font-size:22px;font-weight:700;color:#1a3d2b;line-height:1.15}
+#escene-situation{
+  background:rgba(0,0,0,0.035);border-radius:10px;
+  padding:13px 16px;font-size:13.5px;line-height:1.65;
+  font-style:italic;color:#333;
+  border-left:3px solid #52b788;margin-bottom:16px;
+}
+#escene-question{font-size:14px;font-weight:700;color:#1a3d2b;margin-bottom:12px}
+#escene-options{display:flex;flex-direction:column;gap:8px}
+.es-opt{
+  border:2px solid rgba(0,0,0,0.1);border-radius:10px;
+  padding:12px 16px;cursor:pointer;font-size:13.5px;
+  transition:all 0.18s;display:flex;align-items:center;gap:10px;
+  background:white;color:#1a1a1a;
+}
+.es-opt:hover:not(.edisabled){border-color:#52b788;background:#d8f3dc}
+.es-opt.ecorrect{border-color:#52b788!important;background:#d8f3dc!important;color:#1a3d2b}
+.es-opt.ewrong{border-color:#e63946!important;background:#fff0f0!important;color:#c0392b}
+.es-opt.edisabled{cursor:default}
+.es-opt-letter{width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.es-opt.ecorrect .es-opt-letter{background:#52b788;color:white}
+.es-opt.ewrong .es-opt-letter{background:#e63946;color:white}
+#escene-feedback{
+  margin-top:14px;padding:12px 16px;border-radius:10px;
+  font-size:13px;line-height:1.6;display:none;
+}
+#escene-feedback.eshow{display:block;animation:efup 0.3s ease}
+#escene-feedback.egood{background:#d8f3dc;color:#1a3d2b;border-left:4px solid #52b788}
+#escene-feedback.ebad{background:#fff0f0;color:#c0392b;border-left:4px solid #e63946}
+@keyframes efup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#emma-prog{width:min(880px,100%);display:flex;align-items:center;gap:8px}
+.ep-dot{flex:1;height:6px;background:rgba(255,255,255,0.18);border-radius:999px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden}
+.ep-dot.edone{background:rgba(255,255,255,0.45)}
+.ep-dot.eactive{background:#52b788;box-shadow:0 0 8px rgba(82,183,136,0.5)}
+.ep-dot.eactive::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:eshimmer 1.5s infinite}
+@keyframes eshimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+#emma-nav{width:min(880px,100%);display:flex;align-items:center;justify-content:space-between}
+#em-counter{font-size:14px;font-weight:700;color:rgba(255,255,255,0.65)}
+.em-navbtn{display:flex;align-items:center;gap:7px;padding:11px 26px;border-radius:999px;border:none;cursor:pointer;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+#em-prev{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border:2px solid rgba(255,255,255,0.15)}
+#em-prev:hover{background:rgba(255,255,255,0.2);color:white}
+#em-next-btn{background:#52b788;color:#1a3d2b;box-shadow:0 5px 18px rgba(82,183,136,0.4)}
+#em-next-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(82,183,136,0.5)}
+#eintro-overlay{
+  position:absolute;inset:0;border-radius:24px;
+  background:linear-gradient(135deg,#1a3d2b,#0d2518);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;z-index:100;
+  transition:opacity 0.5s,transform 0.5s;
+}
+#eintro-overlay.egone{opacity:0;transform:scale(1.03);pointer-events:none}
+.eintro-big-emoji{font-size:64px;animation:emma-idle 2s ease-in-out infinite}
+.eintro-heading{font-size:28px;font-weight:700;color:#faf7f2;text-align:center;line-height:1.2}
+.eintro-sub{color:#b7e4c7;font-size:14px;text-align:center;max-width:360px;font-weight:500;line-height:1.5}
+.eintro-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.eintro-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#b7e4c7;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:600}
+.eintro-start{background:#52b788;color:#1a3d2b;border:none;border-radius:999px;padding:14px 44px;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 22px rgba(82,183,136,0.4)}
+.eintro-start:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(82,183,136,0.5)}
+#eoutro-overlay{
+  position:absolute;inset:0;border-radius:24px;
+  background:linear-gradient(135deg,#1a3d2b,#0d2518);
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;z-index:100;
+}
+#eoutro-overlay.eshow{display:flex}
+.eoutro-heading{font-size:30px;font-weight:700;color:#faf7f2;text-align:center}
+.eoutro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:400px;width:100%}
+.eoutro-card{background:rgba(82,183,136,0.12);border:1px solid rgba(82,183,136,0.3);border-radius:10px;padding:10px;text-align:center;font-size:12px;font-weight:700;color:#b7e4c7;animation:eoutro-pop 0.4s ease backwards}
+@keyframes eoutro-pop{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+.eoutro-cta{background:#52b788;color:#1a3d2b;border:none;border-radius:999px;padding:12px 36px;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s}
+.eoutro-cta:hover{transform:translateY(-2px)}
+</style>
+
+<div id="emma-wrap">
+  <div id="emma-stage" style="position:relative">
+
+    <div id="eintro-overlay">
+      <div class="eintro-big-emoji">👩‍💼</div>
+      <div class="eintro-heading">A Day in Emma's Office</div>
+      <div class="eintro-sub">Follow Emma through her working day — at each moment, identify what she could do differently to reduce waste.</div>
+      <div class="eintro-pills">
+        <span class="eintro-pill">📧 Morning email</span>
+        <span class="eintro-pill">☕ Coffee break</span>
+        <span class="eintro-pill">🍱 Lunchtime</span>
+        <span class="eintro-pill">🌙 End of day</span>
       </div>
-      <div id="sceneContent"></div>
-      <div style="display:flex;gap:12px;margin-top:16px">
-        <button class="nav-btn nav-btn-prev" id="sceneBack" onclick="prevScene()" style="display:none">← Previous Scene</button>
-        <button class="nav-btn nav-btn-next" id="sceneNext" onclick="nextScene()" style="display:none">Next Scene →</button>
-        <button class="nav-btn nav-btn-next" id="sceneFinish" onclick="goTo('m2-match')" style="display:none">Try the Matching Game →</button>
+      <button class="eintro-start" onclick="startEmma()">Follow Emma →</button>
+    </div>
+
+    <div id="eoutro-overlay">
+      <div style="font-size:52px">🌿</div>
+      <div class="eoutro-heading">Emma's day — complete!</div>
+      <div class="eoutro-grid" id="eoutro-grid"></div>
+      <div style="color:#b7e4c7;font-size:13px;font-weight:600;text-align:center;max-width:400px;padding:0 20px">
+        Small daily choices, multiplied across every person in the office, create real and measurable change.
       </div>
+      <button class="eoutro-cta" onclick="restartEmma()">↺ Try again</button>
+    </div>
+
+    <div id="emma-panel">
+      <div id="emma-bubble"><span id="emma-speech">Hi! I'm Emma. Follow me through my working day and help me make better waste choices!</span></div>
+      <div id="escene-badge">Scene 1</div>
+      <div id="emma-char" class="idle">
+        <div class="e-shadow"></div>
+        <div class="e-shoe-l"></div><div class="e-shoe-r"></div>
+        <div class="e-leg-l"></div><div class="e-leg-r"></div>
+        <div class="e-body"></div>
+        <div class="e-belt"></div>
+        <div class="e-arm-l"><div class="e-hand-l"></div></div>
+        <div class="e-arm-r"><div class="e-hand-r"></div></div>
+        <div class="e-neck"></div>
+        <div class="e-head">
+          <div class="e-hair"></div>
+          <div class="e-brows"><div class="e-brow"></div><div class="e-brow"></div></div>
+          <div class="e-eyes"><div class="e-eye"></div><div class="e-eye"></div></div>
+          <div class="e-cheek-l"></div><div class="e-cheek-r"></div>
+          <div class="e-mouth"></div>
+        </div>
+      </div>
+      <div class="e-nametag">Emma 📋</div>
+    </div>
+
+    <div id="econtent-panel">
+      <div id="escene-header">
+        <div id="escene-emoji-box">📧</div>
+        <div>
+          <div id="escene-subtitle">Scene 1 of 4 · Morning</div>
+          <div id="escene-title">The Email Report</div>
+        </div>
+      </div>
+      <div id="escene-situation"></div>
+      <div id="escene-question"></div>
+      <div id="escene-options"></div>
+      <div id="escene-feedback"></div>
+    </div>
+  </div>
+
+  <div id="emma-prog"></div>
+
+  <div id="emma-nav">
+    <button class="em-navbtn" id="em-prev" onclick="emPrev()">← Back</button>
+    <span id="em-counter">1 / 4</span>
+    <button class="em-navbtn" id="em-next-btn" onclick="emNext()" style="display:none">Next scene →</button>
+  </div>
+</div>
+
+<script>
+const emScenes = [
+  {
+    emoji:'📧',
+    color:'#d8f3dc',
+    subtitle:'Scene 1 of 4 · Morning',
+    title:'The Email Report',
+    situation:'Emma receives an email with a 10-page report attached. Without thinking, she hits print — single-sided — and adds it to the pile of papers on her desk for a meeting later.',
+    question:'What could Emma have done differently?',
+    options:['Print it anyway — paper is necessary for meetings','Read the report on-screen instead of printing','Print double-sided only','Best options: read on screen, or print double-sided if essential'],
+    correct:3,
+    speech:'I just got a 10-page report and my first instinct was to print it. But should I really be printing everything I receive?',
+    speechAfter:'You\'re right! Reading on-screen is always best. If I must print, duplex is a must. This alone could cut my paper use by 50%!',
+    feedback:'Reading documents on screen eliminates printing waste entirely — the most sustainable choice. If printing is truly necessary, double-sided is the minimum standard. Selectively printing only key pages is also an option. Digital-first saves paper, energy, and money.'
+  },
+  {
+    emoji:'☕',
+    color:'#fff8e1',
+    subtitle:'Scene 2 of 4 · Mid-morning',
+    title:'The Coffee Run',
+    situation:'Emma heads to the office café and orders her usual flat white in a disposable paper cup — her third one this week. She finishes it quickly and drops the cup in the general waste bin.',
+    question:'What would be a more sustainable choice for Emma?',
+    options:['Switch to tea — it uses less packaging','Bring a reusable coffee cup from home','Use a biodegradable cup instead','Buy a larger cup to use fewer cups overall'],
+    correct:1,
+    speech:'Three cups this week already! They\'re paper so they\'re fine to throw away... aren\'t they?',
+    speechAfter:'I had no idea! Those cups aren\'t recyclable because of the plastic lining. A reusable cup is the clear answer — and lots of cafés give a discount!',
+    feedback:'A reusable coffee cup eliminates about 11 grams of waste per use and avoids manufacturing and disposal emissions. Over 250 working days, that\'s 250 fewer cups per person per year. Most disposable cups — even paper ones — can\'t be recycled due to their plastic lining, so they go straight to landfill.'
+  },
+  {
+    emoji:'🍱',
+    color:'#e8f4fd',
+    subtitle:'Scene 3 of 4 · Lunchtime',
+    title:'The Water Bottle',
+    situation:'Emma finishes her lunch at her desk. She has an empty plastic water bottle next to her laptop. Without looking up from her screen, she drops it straight into the general waste bin under her desk.',
+    question:'What should Emma have done with the bottle?',
+    options:['Leave it on her desk — she\'ll sort it later','Place it in the food waste bin','Rinse it and put it in the recycling bin','Throw it in the paper recycling bin'],
+    correct:2,
+    speech:'I just threw my bottle in the bin under my desk. It\'s plastic though — does that matter?',
+    speechAfter:'It really does matter! One wrong item can contaminate a whole bag. I\'ll rinse my bottle and use the proper recycling bin from now on.',
+    feedback:'Clean plastic bottles belong in the recycling bin. Rinsing before recycling removes food residue that causes contamination. Critically, one contaminated item in the recycling can invalidate an entire bin bag — sending everything to landfill. This is why correct bin use matters so much.'
+  },
+  {
+    emoji:'🌙',
+    color:'#e8e8f5',
+    subtitle:'Scene 4 of 4 · End of Day',
+    title:'Logging Off',
+    situation:'5:30pm — Emma grabs her coat and bag, says goodbye to her colleagues, and heads for the door. Her monitor, PC, and desk lamp are all still switched on. She\'s the last one leaving this floor.',
+    question:'What should Emma do before she leaves?',
+    options:['Leave everything on — the IT team handles it','Turn off the monitor but leave the PC running for updates','Enable sleep mode — it\'s the same as switching off','Turn off monitor, PC, and desk lamp before leaving'],
+    correct:3,
+    speech:'5:30 already! Time to go... although I\'m not sure I switched anything off. Does it really matter overnight?',
+    speechAfter:'60 kWh per year per monitor doing nothing! I had no idea. Switching off takes 15 seconds. I\'ll make it my last habit before I leave each day.',
+    feedback:'A monitor left on standby overnight uses approximately 20 watts — around 60 kWh per year, per monitor, doing nothing useful. Turning off your monitor, PC, and lights takes about 15 seconds and has year-round impact. Sleep mode is not equivalent to off — it still draws power. This is the simplest habit to build.'
+  }
+];
+
+let eCurrent = 0;
+let eAnswered = [];
+let eTalkTimer = null;
+
+function startEmma(){
+  document.getElementById('eintro-overlay').classList.add('egone');
+  setTimeout(()=>{
+    document.getElementById('eintro-overlay').style.display='none';
+    buildEmmaProgress();
+    loadEmmaScene(0,true);
+    emmaTalk(2500);
+  },500);
+}
+
+function buildEmmaProgress(){
+  const w = document.getElementById('emma-prog');
+  w.innerHTML = emScenes.map((_,i)=>`<div class="ep-dot ${i===0?'eactive':''}" id="ep-${i}" onclick="jumpEmma(${i})" title="Scene ${i+1}"></div>`).join('');
+}
+
+function loadEmmaScene(idx,force){
+  eCurrent = idx;
+  const s = emScenes[idx];
+  const cp = document.getElementById('econtent-panel');
+  cp.style.opacity='0';
+  cp.style.transition='opacity 0.25s';
+  setTimeout(()=>{
+    document.getElementById('escene-emoji-box').textContent = s.emoji;
+    document.getElementById('escene-emoji-box').style.background = s.color;
+    document.getElementById('escene-subtitle').textContent = s.subtitle;
+    document.getElementById('escene-title').textContent = s.title;
+    document.getElementById('escene-situation').textContent = s.situation;
+    document.getElementById('escene-question').textContent = s.question;
+    document.getElementById('escene-badge').textContent = 'Scene '+(idx+1);
+    document.getElementById('em-counter').textContent = (idx+1)+' / 4';
+    const alreadyAnswered = eAnswered[idx] !== undefined;
+    const opts = document.getElementById('escene-options');
+    opts.innerHTML = s.options.map((o,i)=>`
+      <div class="es-opt${alreadyAnswered?(i===s.correct?' ecorrect':(i===eAnswered[idx]?' ewrong':'')):''}${alreadyAnswered?' edisabled':''}" onclick="emAnswer(${i},this)">
+        <span class="es-opt-letter">${String.fromCharCode(65+i)}</span>${o}
+      </div>`).join('');
+    const fb = document.getElementById('escene-feedback');
+    if(alreadyAnswered){
+      const correct = eAnswered[idx]===s.correct;
+      fb.className = 'eshow '+(correct?'egood':'ebad');
+      fb.textContent = (correct?'✓ Correct! ':'✗ Not quite. ')+s.feedback;
+    } else {
+      fb.className='';fb.textContent='';
+    }
+    setSpeechEmma(alreadyAnswered ? s.speechAfter : s.speech);
+    emmaTalk(2800);
+    cp.style.opacity='1';
+    document.getElementById('em-prev').style.opacity = idx===0?'0.4':'1';
+    document.getElementById('em-next-btn').style.display = alreadyAnswered && idx<emScenes.length-1 ? '':'none';
+  },260);
+  document.querySelectorAll('.ep-dot').forEach((d,i)=>{
+    d.className='ep-dot';
+    if(i<idx) d.classList.add('edone');
+    if(i===idx) d.classList.add('eactive');
+  });
+}
+
+function setSpeechEmma(text){
+  const el = document.getElementById('emma-speech');
+  el.style.opacity=0;
+  setTimeout(()=>{el.textContent=text;el.style.opacity=1;el.style.transition='opacity 0.3s';},200);
+}
+
+function emmaTalk(dur){
+  const c = document.getElementById('emma-char');
+  clearTimeout(eTalkTimer);
+  c.className='talking';
+  eTalkTimer=setTimeout(()=>{c.className='idle';},dur||2500);
+}
+
+function emAnswer(i,el){
+  const s = emScenes[eCurrent];
+  if(eAnswered[eCurrent]!==undefined) return;
+  eAnswered[eCurrent]=i;
+  document.querySelectorAll('.es-opt').forEach((o,idx)=>{
+    o.classList.add(idx===s.correct?'ecorrect':'ewrong','edisabled');
+  });
+  const fb = document.getElementById('escene-feedback');
+  const correct = i===s.correct;
+  fb.className='eshow '+(correct?'egood':'ebad');
+  fb.textContent=(correct?'✓ Correct! ':'✗ Not quite. ')+s.feedback;
+  setSpeechEmma(s.speechAfter);
+  emmaTalk(3500);
+  if(correct){ const m=document.querySelector('.e-mouth'); if(m){m.style.borderRadius='50% 50% 0 0';m.style.borderBottom='none';m.style.borderTop='2.5px solid #c0706a';setTimeout(()=>{m.style.borderRadius='0 0 50% 50%';m.style.borderBottom='2.5px solid #c0706a';m.style.borderTop='none';},3000);} }
+  document.getElementById('em-next-btn').style.display='';
+  if(eCurrent===emScenes.length-1){ document.getElementById('em-next-btn').textContent='See results →'; }
+}
+
+function emNext(){
+  if(eCurrent>=emScenes.length-1){ showEmmaOutro(); return; }
+  loadEmmaScene(eCurrent+1,true);
+}
+function emPrev(){ if(eCurrent<=0) return; loadEmmaScene(eCurrent-1,true); }
+function jumpEmma(i){ loadEmmaScene(i,true); }
+
+function showEmmaOutro(){
+  const o=document.getElementById('eoutro-overlay');
+  o.classList.add('eshow');
+  const g=document.getElementById('eoutro-grid');
+  const labels=['📧 Print less','☕ Reusable cup','🍱 Correct bin','🌙 Switch off'];
+  g.innerHTML=labels.map((l,i)=>`<div class="eoutro-card" style="animation-delay:${i*0.1}s">${l}</div>`).join('');
+  emmaTalk(2500);
+  setSpeechEmma('I\'ve learned so much today! Four simple habits — every day — really can make a difference.');
+}
+
+function restartEmma(){
+  eAnswered=[];eCurrent=0;
+  document.getElementById('eoutro-overlay').classList.remove('eshow');
+  loadEmmaScene(0,true);
+  emmaTalk(2000);
+}
+setTimeout(()=>{ setSpeechEmma('Hi! I\'m Emma. Follow me through my working day and help me make better waste choices!'); emmaTalk(2500); },600);
+</script>
+
+    <div class="nav-btns">
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m2-streams')">← Waste Streams</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m2-match')">Try the Matching Game →</button>
     </div>
   </div>
 </div>
@@ -3879,7 +4227,6 @@ function goTo(screenId, sidebarEl) {
   if (screenId === 'm2-quiz') initQuiz('quiz2');
   if (screenId === 'm3-quiz') initQuiz('quiz3');
   if (screenId === 'm4-final') initQuiz('quiz4');
-  if (screenId === 'm2-scenario') initScenario();
   if (screenId === 'm2-match') initMatch();
   if (screenId === 'm4-kpi') initChartAnim();
   if (screenId === 'm4-cert') initCert();
