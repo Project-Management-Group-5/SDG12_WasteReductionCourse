@@ -2191,1450 +2191,614 @@ setTimeout(()=>{ setSpeechEmma('Hi! I\'m Emma. Follow me through my working day 
 
 <!-- KIEB ANIMATION EMBEDDED -->
 <style>
-/* ── KIEB EMBED STYLES ── */
-#kieb-embed-wrapper {
-  width:100%; 
-  background: linear-gradient(135deg,#1a3d2b 0%,#0d2518 100%);
-  border-radius: var(--radius);
-  padding: 32px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-#kieb-embed-wrapper #progress-bar-wrap {
-  width: min(960px, 100%);
-  margin-top: 0;
-}
-#kieb-embed-wrapper #stage {
-  width: min(960px, 100%);
-  height: auto;
-  aspect-ratio: 960/580;
-}
-#kieb-embed-wrapper #nav-row {
-  width: min(960px, 100%);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-
-:root{
-  --g1:#1a3d2b;--g2:#2d6a4f;--g3:#52b788;--g4:#b7e4c7;--g5:#d8f3dc;
-  --amber:#f4a261;--cream:#faf7f2;--ink:#1a1a1a;--white:#fff;
-  --red:#e63946;--blue:#457b9d;--yellow:#f9c74f;
-}
-
-body{
-  font-family:'Nunito',sans-serif;
-  background:linear-gradient(135deg,var(--g1) 0%,#0d2518 100%);
-  min-height:100vh;
+/* ── KIEB SCOPED STYLES (all prefixed k-wrap) ── */
+#k-wrap{
+  width:100%;
+  background:linear-gradient(135deg,#1a3d2b,#0d2518);
+  border-radius:16px;
+  padding:24px 20px 20px;
   display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  overflow:hidden;
+  align-items:center;gap:14px;
+  margin-bottom:24px;
+  box-sizing:border-box;
 }
-
-/* ── STAGE ── */
-#stage{
-  width:960px;height:580px;
-  background:var(--cream);
-  border-radius:28px;
-  box-shadow:0 32px 80px rgba(0,0,0,0.5);
-  position:relative;overflow:hidden;
+#k-stage{
+  width:100%;
+  max-width:100%;
+  min-height:520px;
+  background:#faf7f2;
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
   display:grid;
-  grid-template-columns:320px 1fr;
-}
-
-/* ── LEFT: KIEB PANEL ── */
-#kieb-panel{
-  background:linear-gradient(180deg,var(--g5) 0%,var(--g4) 100%);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:flex-end;
-  padding-bottom:20px;
-  position:relative;overflow:hidden;
-}
-
-#kieb-panel::before{
-  content:'';position:absolute;
-  bottom:-60px;left:-60px;
-  width:240px;height:240px;
-  border-radius:50%;
-  background:rgba(82,183,136,0.15);
-}
-
-/* Speech bubble */
-#speech-bubble{
-  position:absolute;top:22px;left:18px;right:18px;
-  background:var(--white);
-  border-radius:18px;
-  padding:14px 16px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.12);
-  font-size:13.5px;line-height:1.6;
-  color:var(--ink);font-weight:600;
-  min-height:120px;
-  transition:opacity 0.3s;
-  border:2px solid var(--g4);
-}
-#speech-bubble::after{
-  content:'';position:absolute;
-  bottom:-14px;left:50%;transform:translateX(-50%);
-  border:8px solid transparent;
-  border-top-color:var(--white);
-}
-#speech-bubble::before{
-  content:'';position:absolute;
-  bottom:-17px;left:50%;transform:translateX(-50%);
-  border:9px solid transparent;
-  border-top-color:var(--g4);
-}
-
-/* Action number badge */
-#action-badge{
-  position:absolute;top:22px;right:22px;
-  width:42px;height:42px;
-  border-radius:50%;
-  background:var(--g1);
-  color:var(--cream);
-  font-family:'Fredoka One',cursive;
-  font-size:20px;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* ── KIEB CHARACTER ── */
-#kieb-wrap{
-  position:relative;
-  width:200px;height:280px;
-  flex-shrink:0;
-}
-
-/* Body parts */
-.k-shadow{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:100px;height:16px;
-  background:rgba(0,0,0,0.12);
-  border-radius:50%;
-}
-
-/* Shoes */
-.k-shoe-l,.k-shoe-r{
-  position:absolute;bottom:12px;
-  width:34px;height:18px;
-  background:#3a2a1a;
-  border-radius:40% 60% 60% 40%;
-}
-.k-shoe-l{left:44px;}
-.k-shoe-r{right:44px;border-radius:60% 40% 40% 60%;}
-
-/* Legs */
-.k-leg-l,.k-leg-r{
-  position:absolute;bottom:26px;
-  width:28px;height:70px;
-  background:#2d6a4f;
-  border-radius:14px 14px 6px 6px;
-}
-.k-leg-l{left:56px;}
-.k-leg-r{right:56px;}
-
-/* Body */
-.k-body{
-  position:absolute;bottom:88px;left:50%;transform:translateX(-50%);
-  width:90px;height:100px;
-  background:#52b788;
-  border-radius:20px 20px 16px 16px;
-}
-/* Shirt collar */
-.k-body::after{
-  content:'K';
-  position:absolute;top:12px;left:50%;transform:translateX(-50%);
-  font-family:'Fredoka One',cursive;
-  font-size:28px;color:rgba(255,255,255,0.6);
-  font-weight:900;
-}
-
-/* Belt */
-.k-belt{
-  position:absolute;bottom:92px;left:50%;transform:translateX(-50%);
-  width:94px;height:12px;
-  background:#1a3d2b;
-  border-radius:4px;
-}
-
-/* Arms */
-.k-arm-l,.k-arm-r{
-  position:absolute;bottom:128px;
-  width:26px;height:72px;
-  background:#52b788;
-  border-radius:13px;
-  transform-origin:top center;
-  transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-}
-.k-arm-l{left:26px;transform:rotate(15deg);}
-.k-arm-r{right:26px;transform:rotate(-15deg);}
-
-/* Hands */
-.k-hand-l,.k-hand-r{
-  position:absolute;
-  width:22px;height:22px;
-  background:#f4c89a;
-  border-radius:50%;
-  bottom:-6px;left:2px;
-}
-.k-hand-r{right:2px;left:auto;}
-
-/* Neck */
-.k-neck{
-  position:absolute;bottom:186px;left:50%;transform:translateX(-50%);
-  width:22px;height:20px;
-  background:#f4c89a;
-  border-radius:4px;
-}
-
-/* Head */
-.k-head{
-  position:absolute;bottom:198px;left:50%;transform:translateX(-50%);
-  width:80px;height:78px;
-  background:#f4c89a;
-  border-radius:50% 50% 46% 46%;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Hair */
-.k-hair{
-  position:absolute;top:-10px;left:-4px;right:-4px;
-  height:38px;
-  background:#3a2010;
-  border-radius:50% 50% 10% 10%;
+  grid-template-columns:280px 1fr;
   overflow:hidden;
-}
-.k-hair::after{
-  content:'';position:absolute;
-  top:14px;left:10px;right:10px;
-  height:12px;background:#2a1508;
-  border-radius:0 0 50% 50%;
-}
-
-/* Eyes */
-.k-eyes{
-  position:absolute;top:28px;left:0;right:0;
-  display:flex;justify-content:center;gap:16px;
-}
-.k-eye{
-  width:13px;height:13px;
-  background:#1a1a1a;
-  border-radius:50%;
   position:relative;
-  animation:blink 4s infinite;
 }
-.k-eye::after{
-  content:'';position:absolute;
-  top:2px;right:2px;
-  width:4px;height:4px;
-  background:white;border-radius:50%;
+#k-progress{
+  width:100%;
+  display:flex;align-items:center;gap:10px;
 }
-@keyframes blink{
-  0%,48%,52%,100%{transform:scaleY(1)}
-  50%{transform:scaleY(0.05)}
-}
-
-/* Eyebrows */
-.k-brows{
-  position:absolute;top:20px;left:0;right:0;
-  display:flex;justify-content:center;gap:20px;
-}
-.k-brow{
-  width:14px;height:3px;
-  background:#3a2010;
-  border-radius:2px;
-  transition:transform 0.4s;
-}
-
-/* Mouth */
-.k-mouth{
-  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
-  width:26px;height:12px;
-  border-bottom:3px solid #c0706a;
-  border-radius:0 0 50% 50%;
-  transition:all 0.3s;
-}
-
-/* Cheeks */
-.k-cheek-l,.k-cheek-r{
-  position:absolute;top:40px;
-  width:14px;height:10px;
-  background:rgba(240,120,100,0.3);
-  border-radius:50%;
-}
-.k-cheek-l{left:6px;}
-.k-cheek-r{right:6px;}
-
-/* Name tag */
-.k-nametag{
-  position:absolute;bottom:6px;
-  left:50%;transform:translateX(-50%);
-  background:var(--g1);color:var(--cream);
-  font-family:'Fredoka One',cursive;
-  font-size:15px;
-  padding:4px 16px;
-  border-radius:999px;
-  white-space:nowrap;
-  box-shadow:0 3px 10px rgba(0,0,0,0.2);
-}
-
-/* Kieb animations */
-@keyframes kieb-idle{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
-@keyframes kieb-talk{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  25%{transform:translateY(-4px) rotate(-1deg)}
-  75%{transform:translateY(-2px) rotate(1deg)}
-}
-@keyframes wave-arm{
-  0%,100%{transform:rotate(-30deg)}
-  50%{transform:rotate(-80deg)}
-}
-@keyframes point-arm{
-  0%,100%{transform:rotate(-60deg)}
-  50%{transform:rotate(-50deg)}
-}
-
-#kieb-wrap.talking{animation:kieb-talk 0.5s infinite}
-#kieb-wrap.idle{animation:kieb-idle 2.5s ease-in-out infinite}
-#kieb-wrap.talking .k-arm-r{animation:wave-arm 0.6s infinite}
-#kieb-wrap.talking .k-mouth{
-  animation:mouth-talk 0.3s infinite alternate;
-}
-@keyframes mouth-talk{
-  from{height:8px;width:22px}
-  to{height:14px;width:28px}
-}
-
-/* ── RIGHT: CONTENT PANEL ── */
-#content-panel{
-  display:flex;flex-direction:column;
-  padding:28px 32px 20px;
-  position:relative;
-  background:var(--cream);
-}
-
-#action-title-wrap{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:18px;
-}
-#action-emoji{
-  width:56px;height:56px;
-  border-radius:16px;
-  background:var(--g5);
-  display:flex;align-items:center;justify-content:center;
-  font-size:30px;
-  flex-shrink:0;
-  transition:all 0.3s;
-}
-#action-title{
-  font-family:'Fredoka One',cursive;
-  font-size:28px;
-  color:var(--g1);
-  line-height:1.1;
-}
-#action-subtitle{
-  font-size:13px;color:var(--g2);font-weight:700;
-  letter-spacing:0.05em;text-transform:uppercase;
-}
-
-/* Visual stage */
-#visual-stage{
-  flex:1;
-  border-radius:16px;
-  background:linear-gradient(135deg,#e8f5ee,#d0eedd);
-  margin-bottom:16px;
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-
-/* How-to strip */
-#how-to{
-  background:var(--g1);
-  border-radius:12px;
-  padding:12px 18px;
-  color:var(--cream);
-  font-size:13px;font-weight:700;
-  line-height:1.5;
-  display:flex;align-items:flex-start;gap:10px;
-  margin-bottom:14px;
-}
-#how-to-icon{font-size:20px;flex-shrink:0;}
-
-/* Source */
-#source-tag{
-  font-size:11px;color:var(--g2);font-weight:700;
-  text-align:right;opacity:0.7;
-}
-
-/* ── PROGRESS BAR ── */
-#progress-bar-wrap{
-  width:960px;
-  margin-top:18px;
-  display:flex;align-items:center;gap:12px;
-}
-.prog-dot{
+.k-dot{
   flex:1;height:7px;
-  background:rgba(255,255,255,0.2);
-  border-radius:999px;
-  cursor:pointer;
+  background:rgba(255,255,255,0.15);
+  border-radius:999px;cursor:pointer;
   transition:all 0.3s;
-  position:relative;overflow:hidden;
 }
-.prog-dot.done{background:rgba(255,255,255,0.5)}
-.prog-dot.active{background:var(--g3);box-shadow:0 0 12px rgba(82,183,136,0.6)}
-.prog-dot.active::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);
-  animation:shimmer 1.5s infinite;
-}
-@keyframes shimmer{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
-}
-
-/* ── NAV ── */
-#nav-row{
-  width:960px;
+.k-dot.done{background:rgba(255,255,255,0.45)}
+.k-dot.active{background:#52b788;box-shadow:0 0 10px rgba(82,183,136,0.6)}
+#k-nav{
+  width:100%;
   display:flex;align-items:center;justify-content:space-between;
-  margin-top:14px;
 }
-#counter-label{
+#k-counter{
   font-family:'Fredoka One',cursive;
   font-size:16px;color:rgba(255,255,255,0.7);
 }
-.nav-btn{
+.k-navbtn{
   display:flex;align-items:center;gap:8px;
-  padding:12px 28px;
-  border-radius:999px;
-  border:none;cursor:pointer;
-  font-family:'Nunito',sans-serif;
-  font-size:15px;font-weight:800;
-  transition:all 0.2s;
+  padding:12px 28px;border-radius:999px;border:none;
+  cursor:pointer;font-size:15px;font-weight:800;
+  transition:all 0.2s;font-family:'Nunito',sans-serif;
 }
-#btn-prev{
-  background:rgba(255,255,255,0.12);
-  color:rgba(255,255,255,0.7);
-  border:2px solid rgba(255,255,255,0.15);
+#k-btn-prev{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border:2px solid rgba(255,255,255,0.15);}
+#k-btn-prev:hover{background:rgba(255,255,255,0.2);color:#fff}
+#k-btn-next{background:#52b788;color:#1a3d2b;box-shadow:0 6px 20px rgba(82,183,136,0.4);}
+#k-btn-next:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(82,183,136,0.5)}
+#k-autoplay-btn{
+  background:transparent;border:2px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.6);padding:8px 20px;border-radius:999px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s;font-family:'Nunito',sans-serif;
 }
-#btn-prev:hover{background:rgba(255,255,255,0.2);color:white}
-#btn-next{
-  background:var(--g3);color:var(--g1);
-  box-shadow:0 6px 20px rgba(82,183,136,0.4);
-}
-#btn-next:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(82,183,136,0.5)}
+#k-autoplay-btn:hover{border-color:#52b788;color:#52b788}
+#k-autoplay-btn.on{background:#52b788;color:#1a3d2b;border-color:#52b788}
 
-#autoplay-btn{
-  background:transparent;
-  border:2px solid rgba(255,255,255,0.2);
-  color:rgba(255,255,255,0.6);
-  padding:8px 20px;
-  border-radius:999px;
-  font-family:'Nunito',sans-serif;
-  font-size:13px;font-weight:700;
-  cursor:pointer;
-  transition:all 0.2s;
-}
-#autoplay-btn:hover{border-color:var(--g3);color:var(--g3)}
-#autoplay-btn.on{background:var(--g3);color:var(--g1);border-color:var(--g3)}
-
-/* ── SCREEN TRANSITION ── */
-.screen-enter{animation:screenIn 0.5s cubic-bezier(0.23,1,0.32,1) forwards}
-.screen-exit{animation:screenOut 0.3s ease forwards}
-@keyframes screenIn{
-  from{opacity:0;transform:translateX(40px)}
-  to{opacity:1;transform:translateX(0)}
-}
-@keyframes screenOut{
-  from{opacity:1;transform:translateX(0)}
-  to{opacity:0;transform:translateX(-30px)}
-}
-
-/* ── VISUAL ILLUSTRATIONS ── */
-
-/* Action 1: Print Less */
-.vis-printer{
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-}
-.printer-body{
-  width:120px;height:70px;
-  background:#555;border-radius:12px;
-  position:relative;
-  box-shadow:0 6px 20px rgba(0,0,0,0.15);
-}
-.printer-slot{
-  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
-  width:80px;height:8px;background:#333;border-radius:2px;
-}
-.printer-light{
-  position:absolute;top:14px;right:16px;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--g3);
-  animation:pulse-light 1.2s infinite;
-}
-@keyframes pulse-light{0%,100%{opacity:1}50%{opacity:0.3}}
-.paper-out{
-  width:70px;height:10px;
-  background:white;
-  border-radius:2px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-  animation:paper-emerge 2s infinite;
-  transform-origin:top center;
-}
-@keyframes paper-emerge{
-  0%{height:2px;opacity:0}
-  40%{height:10px;opacity:1}
-  80%{height:10px;opacity:1}
-  100%{height:2px;opacity:0}
-}
-.duplex-badge{
-  background:var(--g3);color:var(--g1);
-  font-family:'Fredoka One',cursive;
-  font-size:18px;padding:6px 18px;border-radius:999px;
-  animation:bounce-badge 1.5s ease-in-out infinite;
-}
-@keyframes bounce-badge{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.saving-txt{font-size:13px;font-weight:800;color:var(--g2)}
-
-/* Action 2: Reusable Items */
-.vis-cups{display:flex;align-items:flex-end;gap:20px}
-.cup-disposable{
-  width:44px;height:56px;
-  background:linear-gradient(180deg,#e8e8e8,#ccc);
-  clip-path:polygon(8% 0,92% 0,82% 100%,18% 100%);
-  position:relative;
-  opacity:1;transition:opacity 1s;
-}
-.cup-disposable.fade{opacity:0.2}
-.cross-over{
-  position:absolute;
-  top:-8px;left:50%;transform:translateX(-50%);
-  font-size:28px;color:var(--red);
-  animation:appear 2s infinite;
-}
-@keyframes appear{0%,60%{opacity:0}70%,100%{opacity:1}}
-.cup-reusable{
-  width:48px;height:60px;
-  background:linear-gradient(180deg,var(--g3),var(--g2));
-  border-radius:4px 4px 8px 8px;
-  border:3px solid var(--g2);
-  position:relative;
-}
-.cup-handle{
-  position:absolute;right:-12px;top:14px;
-  width:14px;height:18px;
-  border:3px solid var(--g2);
-  border-left:none;border-radius:0 8px 8px 0;
-}
-.arrow-replace{
-  font-size:26px;color:var(--g3);
-  animation:arrow-pulse 1.5s infinite;
-}
-@keyframes arrow-pulse{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
-.saves-tag{
-  position:absolute;top:8px;right:8px;
-  background:var(--amber);color:white;
-  font-size:11px;font-weight:800;
-  padding:4px 8px;border-radius:8px;
-  white-space:nowrap;
-}
-
-/* Action 3: Bin Use */
-.vis-bins{display:flex;gap:16px;align-items:flex-end;position:relative}
-.bin{
-  width:52px;height:66px;
-  border-radius:4px 4px 10px 10px;
-  position:relative;display:flex;align-items:center;justify-content:center;
-  flex-direction:column;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
-}
-.bin-lid{
-  position:absolute;top:-10px;left:-3px;right:-3px;height:14px;
-  border-radius:4px;
-}
-.bin-label{font-size:10px;font-weight:800;color:white;margin-top:14px;text-align:center}
-.bin-green{background:#52b788;} .bin-green .bin-lid{background:#2d6a4f}
-.bin-blue{background:#457b9d;} .bin-blue .bin-lid{background:#1d3557}
-.bin-black{background:#555;} .bin-black .bin-lid{background:#333}
-.item-fall{
-  position:absolute;top:-40px;left:50%;transform:translateX(-50%);
-  font-size:22px;
-  animation:fall-in 2.5s infinite;
-}
-@keyframes fall-in{
-  0%{transform:translateX(-50%) translateY(0);opacity:1}
-  60%{transform:translateX(-50%) translateY(44px);opacity:1}
-  70%,100%{transform:translateX(-50%) translateY(44px);opacity:0}
-}
-.correct-glow{
-  position:absolute;inset:0;
-  border-radius:inherit;
-  box-shadow:0 0 0 0 rgba(82,183,136,0.6);
-  animation:correct-pulse 2s infinite;
-}
-@keyframes correct-pulse{
-  0%{box-shadow:0 0 0 0 rgba(82,183,136,0.6)}
-  70%{box-shadow:0 0 0 12px rgba(82,183,136,0)}
-  100%{box-shadow:0 0 0 0 rgba(82,183,136,0)}
-}
-
-/* Action 4: Switch Off */
-.vis-power{display:flex;flex-direction:column;align-items:center;gap:14px}
-.monitor{
-  width:130px;height:86px;
-  background:#222;border-radius:10px;
-  border:4px solid #444;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-}
-.monitor-screen{
-  width:110px;height:68px;
-  border-radius:6px;
-  background:#1a1a2e;
-  transition:background 1.5s;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-}
-.monitor-screen.off{background:#000}
-.monitor-screen.on{background:linear-gradient(135deg,#1a1a2e,#16213e)}
-.screen-content{
-  font-size:11px;color:rgba(100,200,140,0.8);font-family:monospace;
-  animation:flicker 3s infinite;
-}
-@keyframes flicker{0%,95%,100%{opacity:1}96%,98%{opacity:0.1}}
-.monitor-stand{
-  width:14px;height:18px;background:#444;
-  border-radius:0 0 4px 4px;
-}
-.monitor-base{width:60px;height:8px;background:#444;border-radius:4px}
-.power-btn{
-  width:48px;height:48px;border-radius:50%;
-  background:var(--g1);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  box-shadow:0 4px 16px rgba(0,0,0,0.2);
-  animation:power-glow 2s infinite;
-}
-@keyframes power-glow{
-  0%,100%{box-shadow:0 4px 16px rgba(82,183,136,0.2)}
-  50%{box-shadow:0 4px 24px rgba(82,183,136,0.8)}
-}
-.power-icon{font-size:22px}
-.kwh-save{
-  font-family:'Fredoka One',cursive;
-  font-size:16px;color:var(--g3);
-  animation:count-up 2s infinite;
-}
-@keyframes count-up{
-  0%{content:'0 kWh'}
-  100%{content:'60 kWh'}
-}
-
-/* Action 5: Share Supplies */
-.vis-supplies{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px}
-.cupboard{
-  width:110px;height:90px;
-  background:#a0522d;border-radius:8px;
-  border:3px solid #7a3f22;
-  display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:4px;padding:8px;
-  position:relative;
-}
-.cupboard::before{
-  content:'SHARED';position:absolute;top:-16px;left:50%;transform:translateX(-50%);
-  font-size:10px;font-weight:800;color:var(--g2);letter-spacing:0.1em;
-}
-.supply-item{font-size:16px}
-.share-arrow{
-  font-size:24px;color:var(--g3);
-  animation:share-bounce 1.2s ease-in-out infinite;
-}
-@keyframes share-bounce{
-  0%,100%{transform:translateX(-10px);opacity:0.5}
-  50%{transform:translateX(10px);opacity:1}
-}
-.people-row{display:flex;gap:8px}
-.person-icon{font-size:28px;animation:person-pop 1.8s infinite}
-.person-icon:nth-child(2){animation-delay:0.3s}
-.person-icon:nth-child(3){animation-delay:0.6s}
-@keyframes person-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
-
-/* Action 6: Digital First */
-.vis-digital{display:flex;flex-direction:column;align-items:center;gap:10px}
-.cloud-icon{
-  font-size:56px;
-  animation:cloud-float 2s ease-in-out infinite;
-  filter:drop-shadow(0 6px 12px rgba(82,183,136,0.3));
-}
-@keyframes cloud-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.upload-line{
-  width:3px;height:40px;
-  background:linear-gradient(var(--g3),transparent);
-  position:relative;
-  animation:upload-anim 1.5s infinite;
-}
-@keyframes upload-anim{
-  0%{height:0;opacity:0}40%{height:40px;opacity:1}80%,100%{height:40px;opacity:0}
-}
-.paper-stack{
-  display:flex;flex-direction:column;gap:3px;
-  align-items:center;opacity:0.3;
-}
-.paper-sheet{
-  width:50px;height:6px;
-  background:#ccc;border-radius:2px;
-}
-.esign-badge{
-  background:var(--blue);color:white;
-  font-size:11px;font-weight:800;
-  padding:5px 12px;border-radius:999px;
-  animation:sign-appear 2s infinite;
-}
-@keyframes sign-appear{0%,50%{opacity:0;transform:scale(0.8)}60%,90%{opacity:1;transform:scale(1)}100%{opacity:0}}
-
-/* Action 7: Repair & Reuse */
-.vis-repair{display:flex;align-items:center;gap:20px}
-.laptop-broken{
-  width:80px;height:56px;
-  background:#555;border-radius:8px 8px 4px 4px;
-  border:3px solid #444;
-  position:relative;display:flex;align-items:center;justify-content:center;
-}
-.crack{
-  position:absolute;
-  width:2px;height:40px;
-  background:var(--red);
-  transform:rotate(15deg);
-  top:4px;
-}
-.wrench{
-  font-size:32px;
-  animation:wrench-turn 1.2s ease-in-out infinite;
-}
-@keyframes wrench-turn{
-  0%,100%{transform:rotate(-20deg)}
-  50%{transform:rotate(20deg)}
-}
-.arrow-fix{font-size:22px;color:var(--g3)}
-.laptop-fixed{
-  width:80px;height:56px;
-  background:var(--g2);border-radius:8px 8px 4px 4px;
-  border:3px solid var(--g3);
-  display:flex;align-items:center;justify-content:center;
-}
-.checkmark-big{
-  font-size:28px;
-  animation:check-pop 1.5s ease infinite;
-}
-@keyframes check-pop{0%,60%{transform:scale(0)}70%{transform:scale(1.3)}80%,100%{transform:scale(1)}}
-
-/* Action 8: Suggest */
-.vis-suggest{display:flex;flex-direction:column;align-items:center;gap:10px}
-.speech-bubbles{display:flex;gap:12px;align-items:flex-end}
-.bubble-small{
-  padding:8px 14px;border-radius:14px 14px 14px 2px;
-  font-size:12px;font-weight:700;
-  max-width:110px;text-align:center;
-  animation:bubble-pop 2s infinite;
-}
-.b1{background:var(--g4);color:var(--g1);animation-delay:0s}
-.b2{background:var(--amber);color:white;animation-delay:0.5s;border-radius:14px 14px 2px 14px}
-@keyframes bubble-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.05) translateY(-4px)}}
-.megaphone{font-size:40px;animation:mega-shake 1.5s infinite}
-@keyframes mega-shake{
-  0%,100%{transform:rotate(-10deg)}
-  50%{transform:rotate(10deg)}
-}
-.idea-stars{position:absolute;top:10px;right:10px;font-size:20px;animation:star-spin 2s infinite}
-@keyframes star-spin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
-
-/* Action 9: Green Policies */
-.vis-policy{display:flex;flex-direction:column;align-items:center;gap:12px}
-.team-circle{
-  width:100px;height:100px;border-radius:50%;
-  background:var(--g5);
-  border:3px solid var(--g3);
-  display:flex;flex-wrap:wrap;
-  align-items:center;justify-content:center;gap:2px;
-  padding:8px;
-}
-.team-person{font-size:20px}
-.policy-doc{
-  width:80px;height:96px;
-  background:white;border-radius:6px;
-  border:3px solid var(--g3);
-  display:flex;flex-direction:column;padding:8px;gap:4px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-.doc-line{height:4px;background:#ddd;border-radius:2px}
-.doc-line.green{background:var(--g3)}
-.doc-check{
-  font-size:24px;
-  animation:bounce-check 1.5s infinite;
-}
-@keyframes bounce-check{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-
-/* Action 10: Spread the Word */
-.vis-spread{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-.network{position:relative;width:200px;height:160px}
-.node{
-  position:absolute;
-  width:36px;height:36px;border-radius:50%;
-  background:var(--g3);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;
-  box-shadow:0 3px 10px rgba(82,183,136,0.4);
-  animation:node-pulse 2s infinite;
-}
-.node:nth-child(2){animation-delay:0.3s}
-.node:nth-child(3){animation-delay:0.6s}
-.node:nth-child(4){animation-delay:0.9s}
-.node:nth-child(5){animation-delay:1.2s}
-@keyframes node-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(82,183,136,0.4)}
-  50%{transform:scale(1.15);box-shadow:0 6px 20px rgba(82,183,136,0.7)}
-}
-.network-line{
-  position:absolute;
-  background:var(--g3);opacity:0.4;
-  height:2px;transform-origin:left center;
-  animation:line-glow 2s infinite;
-}
-@keyframes line-glow{0%,100%{opacity:0.2}50%{opacity:0.7}}
-.spread-tag{
-  position:absolute;bottom:8px;right:8px;
-  background:var(--g1);color:var(--cream);
-  font-size:11px;font-weight:800;
-  padding:5px 12px;border-radius:999px;
-}
-
-/* ── INTRO SCREEN ── */
-#intro-screen{
-  position:absolute;inset:0;
-  background:var(--g1);
+/* LEFT KIEB PANEL */
+#k-left{
+  background:linear-gradient(180deg,#d8f3dc,#b7e4c7);
   display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:20px;
-  z-index:100;
-  border-radius:28px;
-  transition:opacity 0.5s,transform 0.5s;
+  align-items:center;justify-content:flex-end;
+  padding-bottom:20px;position:relative;overflow:hidden;
 }
-#intro-screen.gone{opacity:0;transform:scale(1.04);pointer-events:none}
-.intro-emoji{font-size:72px;animation:kieb-idle 2s ease-in-out infinite}
-.intro-title{
-  font-family:'Fredoka One',cursive;
-  font-size:36px;color:var(--cream);
-  text-align:center;line-height:1.2;
-}
-.intro-sub{color:var(--g4);font-size:15px;text-align:center;max-width:400px;font-weight:600}
-.intro-start{
-  background:var(--g3);color:var(--g1);
-  font-family:'Nunito',sans-serif;font-weight:800;font-size:17px;
-  border:none;border-radius:999px;
-  padding:16px 48px;cursor:pointer;
-  box-shadow:0 8px 28px rgba(82,183,136,0.4);
-  transition:all 0.2s;
-  margin-top:8px;
-}
-.intro-start:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(82,183,136,0.5)}
-.intro-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.intro-pill{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.15);
-  color:var(--g4);
-  padding:6px 16px;border-radius:999px;
-  font-size:12px;font-weight:700;
-}
-
-/* ── OUTRO SCREEN ── */
-#outro-screen{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--g1),#0d2518);
-  display:none;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:16px;z-index:100;border-radius:28px;
-}
-#outro-screen.show{display:flex}
-.outro-title{font-family:'Fredoka One',cursive;font-size:38px;color:var(--cream);text-align:center}
-.outro-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
-  max-width:500px;
-}
-.outro-action{
+#k-left::before{
+  content:'';position:absolute;bottom:-50px;left:-50px;
+  width:200px;height:200px;border-radius:50%;
   background:rgba(82,183,136,0.15);
-  border:1px solid rgba(82,183,136,0.3);
-  border-radius:10px;padding:8px;
-  text-align:center;font-size:11px;font-weight:700;color:var(--g4);
-  animation:outro-pop 0.4s ease backwards;
 }
-@keyframes outro-pop{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
-.outro-cta{
-  background:var(--g3);color:var(--g1);
-  font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;
-  border:none;border-radius:999px;padding:14px 40px;cursor:pointer;
-  transition:all 0.2s;
+#k-speech{
+  position:absolute;top:18px;left:50%;transform:translateX(-50%);
+  width:calc(100% - 28px);
+  background:#fff;border-radius:14px;
+  padding:12px 14px;
+  font-size:12px;font-weight:700;color:#1a3d2b;
+  line-height:1.5;text-align:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.12);
+  z-index:10;
 }
-.outro-cta:hover{transform:translateY(-2px)}
+#k-speech::after{
+  content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+  border:8px solid transparent;border-top-color:#fff;border-bottom:none;
+}
+#k-badge{
+  position:absolute;top:calc(18px + 90px + 14px);
+  right:18px;
+  background:#1a3d2b;color:#b7e4c7;
+  font-family:'Fredoka One',cursive;font-size:16px;
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(0,0,0,0.2);z-index:10;
+}
+/* Kieb character */
+#k-char{position:relative;width:130px;height:200px;margin-bottom:10px}
+.kc-shadow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:12px;background:rgba(0,0,0,0.15);border-radius:50%}
+.kc-shoe{position:absolute;bottom:12px;width:34px;height:18px;background:#1a3d2b;border-radius:10px 10px 6px 6px}
+.kc-shoe-l{left:20px}.kc-shoe-r{right:20px}
+.kc-leg{position:absolute;bottom:28px;width:20px;height:40px;background:#2d6a4f;border-radius:8px}
+.kc-leg-l{left:30px}.kc-leg-r{right:30px}
+.kc-body{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);width:64px;height:70px;background:#52b788;border-radius:20px 20px 10px 10px}
+.kc-belt{position:absolute;bottom:96px;left:50%;transform:translateX(-50%);width:64px;height:10px;background:#1a3d2b;border-radius:4px}
+.kc-arm{position:absolute;bottom:90px;width:18px;height:50px;background:#52b788;border-radius:10px;transform-origin:top center}
+.kc-arm-l{left:10px;transform:rotate(-20deg)}.kc-arm-r{right:10px;transform:rotate(20deg)}
+.kc-hand{width:16px;height:16px;background:#b7e4c7;border-radius:50%;position:absolute;bottom:-4px;left:1px}
+.kc-neck{position:absolute;bottom:132px;left:50%;transform:translateX(-50%);width:18px;height:16px;background:#52b788;border-radius:6px}
+.kc-head{position:absolute;bottom:142px;left:50%;transform:translateX(-50%);width:60px;height:64px;background:#b7e4c7;border-radius:30px 30px 24px 24px}
+.kc-hair{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:50px;height:20px;background:#1a3d2b;border-radius:20px 20px 0 0}
+.kc-eyes{position:absolute;top:20px;left:50%;transform:translateX(-50%);display:flex;gap:12px}
+.kc-eye{width:9px;height:10px;background:#1a3d2b;border-radius:50%}
+.kc-mouth{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:22px;height:8px;background:#2d6a4f;border-radius:0 0 12px 12px}
+.kc-nametag{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);background:#1a3d2b;color:#faf7f2;font-family:'Fredoka One',cursive;font-size:13px;padding:3px 14px;border-radius:999px;white-space:nowrap}
+
+@keyframes k-idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes k-talk{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-4px) rotate(-1deg)}75%{transform:translateY(-2px) rotate(1deg)}}
+@keyframes k-wave{0%,100%{transform:rotate(20deg)}50%{transform:rotate(70deg)}}
+#k-char.idle{animation:k-idle 2.5s ease-in-out infinite}
+#k-char.talking{animation:k-talk 0.5s infinite}
+#k-char.talking .kc-arm-r{animation:k-wave 0.6s infinite}
+
+/* RIGHT CONTENT PANEL */
+#k-right{
+  display:flex;flex-direction:column;
+  padding:24px 28px 20px;
+  background:#faf7f2;
+  overflow:hidden;
+  min-height:0;
+}
+#k-action-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-shrink:0}
+#k-emoji-box{
+  width:54px;height:54px;border-radius:14px;background:#d8f3dc;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;flex-shrink:0;transition:all 0.3s;
+}
+#k-action-num{font-size:12px;color:#2d6a4f;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+#k-action-name{font-family:'Fredoka One',cursive;font-size:26px;color:#1a3d2b;line-height:1.1}
+#k-visual{
+  flex:1;min-height:120px;
+  border-radius:14px;background:linear-gradient(135deg,#e8f5ee,#d0eedd);
+  margin-bottom:14px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+#k-howto{
+  background:#1a3d2b;border-radius:10px;
+  padding:11px 16px;color:#faf7f2;
+  font-size:13px;font-weight:700;line-height:1.5;
+  display:flex;align-items:flex-start;gap:10px;
+  margin-bottom:12px;flex-shrink:0;word-break:break-word;
+}
+#k-howto-icon{font-size:18px;flex-shrink:0}
+#k-source{font-size:11px;color:#2d6a4f;font-weight:700;text-align:right;opacity:0.7;flex-shrink:0}
+
+/* INTRO / OUTRO overlays */
+#k-intro{
+  position:absolute;inset:0;background:linear-gradient(135deg,#1a3d2b,#0d2518);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;z-index:50;border-radius:20px;
+}
+#k-intro.gone{opacity:0;pointer-events:none;transition:opacity 0.4s}
+#k-outro{
+  position:absolute;inset:0;background:linear-gradient(135deg,#1a3d2b,#0d2518);
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;z-index:50;border-radius:20px;
+}
+#k-outro.show{display:flex}
+.k-intro-title{font-family:'Fredoka One',cursive;font-size:30px;color:#faf7f2;text-align:center;line-height:1.2}
+.k-intro-sub{font-size:13px;color:#b7e4c7;text-align:center;max-width:360px;line-height:1.6}
+.k-intro-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:380px}
+.k-intro-pill{background:rgba(82,183,136,0.2);color:#b7e4c7;font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid rgba(82,183,136,0.3)}
+.k-start-btn{background:#52b788;color:#1a3d2b;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:999px;padding:14px 40px;cursor:pointer;transition:all 0.2s;margin-top:6px}
+.k-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(82,183,136,0.4)}
+.k-outro-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:480px}
+.k-outro-item{background:rgba(82,183,136,0.15);border:1px solid rgba(82,183,136,0.3);border-radius:10px;padding:8px;text-align:center;font-size:11px;font-weight:700;color:#b7e4c7}
+.k-restart-btn{background:#52b788;color:#1a3d2b;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;border:none;border-radius:999px;padding:12px 36px;cursor:pointer;transition:all 0.2s}
+.k-anim-enter{animation:kIn 0.4s ease forwards}
+.k-anim-exit{animation:kOut 0.25s ease forwards}
+@keyframes kIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes kOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-25px)}}
 </style>
 
-<div id="kieb-embed-wrapper">
-<!-- BOTTOM BAR -->
-<div id="progress-bar-wrap"></div>
+<div id="k-wrap">
 
-<!-- STAGE -->
-<div id="stage">
+  <!-- PROGRESS DOTS -->
+  <div id="k-progress"></div>
 
-  <!-- INTRO -->
-  <div id="intro-screen">
-    <div class="intro-emoji">🧑‍💼</div>
-    <div class="intro-title">Hi! I'm Kieb 👋<br>Let me show you<br>10 Actions for SDG 12</div>
-    <div class="intro-sub">Module 3 · Full Actions Reference Table · Practical steps every office employee can take today</div>
-    <div class="intro-pills">
-      <span class="intro-pill">🖨️ Print Less</span>
-      <span class="intro-pill">♻️ Reusable Items</span>
-      <span class="intro-pill">🗑️ Correct Bins</span>
-      <span class="intro-pill">⚡ Switch Off</span>
-      <span class="intro-pill">+ 6 more</span>
-    </div>
-    <button class="intro-start" onclick="startKiebCourse()">Let's Go! →</button>
-  </div>
+  <!-- STAGE -->
+  <div id="k-stage">
 
-  <!-- OUTRO -->
-  <div id="outro-screen">
-    <div style="font-size:56px">🎉</div>
-    <div class="outro-title">All 10 Actions Complete!</div>
-    <div class="outro-grid" id="outro-grid"></div>
-    <div style="color:var(--g4);font-size:14px;font-weight:700;text-align:center;max-width:420px">
-      Small actions multiplied across an entire workforce create real, measurable change. — Module 3, SDG 12
-    </div>
-    <button class="outro-cta" onclick="restart()">↺ Watch Again</button>
-  </div>
-
-  <!-- LEFT: KIEB -->
-  <div id="kieb-panel">
-    <div id="speech-bubble">
-      <span id="speech-text">Hi! I'm Kieb, your sustainability guide. Let's go through 10 actions you can start today!</span>
-    </div>
-    <div id="action-badge">1</div>
-
-    <div id="kieb-wrap" class="idle">
-      <div class="k-shadow"></div>
-      <div class="k-shoe-l"></div>
-      <div class="k-shoe-r"></div>
-      <div class="k-leg-l"></div>
-      <div class="k-leg-r"></div>
-      <div class="k-body"></div>
-      <div class="k-belt"></div>
-      <div class="k-arm-l"><div class="k-hand-l"></div></div>
-      <div class="k-arm-r"><div class="k-hand-r"></div></div>
-      <div class="k-neck"></div>
-      <div class="k-head">
-        <div class="k-hair"></div>
-        <div class="k-brows"><div class="k-brow"></div><div class="k-brow"></div></div>
-        <div class="k-eyes"><div class="k-eye"></div><div class="k-eye"></div></div>
-        <div class="k-cheek-l"></div>
-        <div class="k-cheek-r"></div>
-        <div class="k-mouth"></div>
+    <!-- INTRO OVERLAY -->
+    <div id="k-intro">
+      <div style="font-size:52px">🧑‍💼</div>
+      <div class="k-intro-title">Hi! I'm Kieb 👋<br>10 Actions for SDG 12</div>
+      <div class="k-intro-sub">Evidence-based steps every office employee can start today — no budget, no permissions needed.</div>
+      <div class="k-intro-pills">
+        <span class="k-intro-pill">🖨️ Print Less</span>
+        <span class="k-intro-pill">♻️ Reusable Items</span>
+        <span class="k-intro-pill">🗑️ Correct Bins</span>
+        <span class="k-intro-pill">⚡ Switch Off</span>
+        <span class="k-intro-pill">+ 6 more</span>
       </div>
+      <button class="k-start-btn" onclick="kStart()">Let's Go! →</button>
     </div>
-    <div class="k-nametag">Kieb 🌿</div>
-  </div>
 
-  <!-- RIGHT: CONTENT -->
-  <div id="content-panel">
-    <div id="action-title-wrap">
-      <div id="action-emoji">🖨️</div>
-      <div>
-        <div id="action-subtitle">ACTION 1 OF 10</div>
-        <div id="action-title">Print Less</div>
+    <!-- OUTRO OVERLAY -->
+    <div id="k-outro">
+      <div style="font-size:52px">🎉</div>
+      <div class="k-intro-title">All 10 Actions Complete!</div>
+      <div id="k-outro-grid" class="k-outro-grid"></div>
+      <div style="color:#b7e4c7;font-size:13px;font-weight:700;text-align:center;max-width:420px">Small actions × entire workforce = real measurable change.</div>
+      <button class="k-restart-btn" onclick="kRestart()">↺ Watch Again</button>
+    </div>
+
+    <!-- LEFT: KIEB CHARACTER -->
+    <div id="k-left">
+      <div id="k-speech"><span id="k-speech-text">Hi! I'm Kieb. Let's go through 10 sustainability actions you can start today!</span></div>
+      <div id="k-badge">1</div>
+      <div id="k-char" class="idle">
+        <div class="kc-shadow"></div>
+        <div class="kc-shoe kc-shoe-l"></div><div class="kc-shoe kc-shoe-r"></div>
+        <div class="kc-leg kc-leg-l"></div><div class="kc-leg kc-leg-r"></div>
+        <div class="kc-body"></div>
+        <div class="kc-belt"></div>
+        <div class="kc-arm kc-arm-l"><div class="kc-hand"></div></div>
+        <div class="kc-arm kc-arm-r"><div class="kc-hand"></div></div>
+        <div class="kc-neck"></div>
+        <div class="kc-head">
+          <div class="kc-hair"></div>
+          <div class="kc-eyes"><div class="kc-eye"></div><div class="kc-eye"></div></div>
+          <div class="kc-mouth"></div>
+        </div>
       </div>
+      <div class="kc-nametag">Kieb 🌿</div>
     </div>
-    <div id="visual-stage"></div>
-    <div id="how-to">
-      <span id="how-to-icon">💡</span>
-      <span id="how-to-text">Set printer default to duplex; use digital signatures; share screens in meetings instead of printing handouts.</span>
+
+    <!-- RIGHT: CONTENT -->
+    <div id="k-right">
+      <div id="k-action-header">
+        <div id="k-emoji-box">🖨️</div>
+        <div>
+          <div id="k-action-num">ACTION 1 OF 10</div>
+          <div id="k-action-name">Print Less</div>
+        </div>
+      </div>
+      <div id="k-visual"></div>
+      <div id="k-howto">
+        <span id="k-howto-icon">💡</span>
+        <span id="k-howto-text">Set printer default to duplex; use digital signatures; share screens in meetings instead of printing handouts.</span>
+      </div>
+      <div id="k-source">Source: EPA Ireland, 2020</div>
     </div>
-    <div id="source-tag">Source: EPA Ireland, 2020</div>
+
+  </div><!-- /#k-stage -->
+
+  <!-- NAV ROW -->
+  <div id="k-nav">
+    <button class="k-navbtn" id="k-btn-prev" onclick="kPrev()">← Back</button>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="k-counter">1 / 10</span>
+      <button id="k-autoplay-btn" onclick="kToggleAutoplay()">▶ Auto-play</button>
+    </div>
+    <button class="k-navbtn" id="k-btn-next" onclick="kNext()">Next →</button>
   </div>
 
-</div>
-
-<!-- NAV ROW -->
-<div id="nav-row">
-  <button class="nav-btn" id="btn-prev" onclick="prevAction()">← Back</button>
-  <div style="display:flex;align-items:center;gap:12px">
-    <span id="counter-label">1 / 10</span>
-    <button id="autoplay-btn" onclick="toggleAutoplay()">▶ Auto-play</button>
-  </div>
-  <button class="nav-btn" id="btn-next" onclick="nextAction()">Next →</button>
-</div>
+</div><!-- /#k-wrap -->
 
 <script>
-const actions = [
-  {
-    emoji: '🖨️',
-    title: 'Print Less',
-    speech: "Printing is one of the biggest sources of paper waste in any office! Set your printer to duplex — that's double-sided — and you'll cut paper use by up to 50% immediately.",
-    how: 'Set printer default to duplex; use digital signatures; share screens in meetings instead of printing handouts.',
-    source: 'Source: EPA Ireland, 2020',
-    visual: 'printer',
-    color: '#d8f3dc'
-  },
-  {
-    emoji: '♻️',
-    title: 'Reusable Items',
-    speech: "Every disposable cup you swap for a reusable one saves 11 grams of waste. Over 250 working days with 50 colleagues? The numbers get huge, really quickly!",
-    how: 'Bring your own bottle, coffee cup, and lunchbox to eliminate single-use packaging waste daily.',
-    source: 'Source: Müller et al., 2025',
-    visual: 'cups',
-    color: '#e8f5ee'
-  },
-  {
-    emoji: '🗑️',
-    title: 'Correct Bin Use',
-    speech: "Here's something that surprises people — ONE contaminated item in the recycling can invalidate the entire bin bag! Learn your office recycling system. Five minutes. It matters enormously.",
-    how: 'Learn the office recycling system; place items in the correct stream; avoid contamination which invalidates entire bins.',
-    source: 'Source: Lielāusis et al., 2025',
-    visual: 'bins',
-    color: '#e0f2f1'
-  },
-  {
-    emoji: '⚡',
-    title: 'Switch Off',
-    speech: "A monitor left on standby overnight uses 20 watts — doing absolutely nothing! That's 60 kWh per year, per monitor. Turning it off takes 15 seconds and has year-round impact.",
-    how: 'Turn off monitor, PC, and lights when leaving; use power-saving settings; unplug chargers when not in use.',
-    source: 'Source: EPA Ireland, 2020',
-    visual: 'power',
-    color: '#fff8e1'
-  },
-  {
-    emoji: '📎',
-    title: 'Share Supplies',
-    speech: "How many half-used pens are in your desk drawer right now? A shared, centralised stationery cupboard reduces over-purchasing and saves money. Use what exists before buying new!",
-    how: 'Use a centralised stationery cupboard; share resources rather than hoarding individual supplies at desks.',
-    source: 'Source: EPA Ireland, 2020',
-    visual: 'supplies',
-    color: '#fef3e2'
-  },
-  {
-    emoji: '☁️',
-    title: 'Digital First',
-    speech: "Going digital isn't just more convenient — it's more sustainable! Cloud storage, e-signatures, note apps — they all replace paper. The paper we never use is the paper we never waste.",
-    how: 'Use cloud storage, note apps, and e-signatures; avoid printing for internal documents and approvals.',
-    source: 'Source: EPA Ireland, 2020',
-    visual: 'digital',
-    color: '#e8f4fd'
-  },
-  {
-    emoji: '🔧',
-    title: 'Repair & Reuse',
-    speech: "Before you discard equipment, ask — can it be repaired? A screen replacement costs far less than manufacturing a new device. And when it's truly end-of-life, donate it!",
-    how: 'Fix broken equipment before discarding; donate old furniture and IT to charities or repair cafés.',
-    source: 'Source: CTC Cork / EPA, 2022',
-    visual: 'repair',
-    color: '#fce4ec'
-  },
-  {
-    emoji: '💬',
-    title: 'Suggest Improvements',
-    speech: "Employees notice sustainability problems before management — but often don't speak up! If there's no recycling bin near the printer, say so. Workplaces where staff speak up have significantly better outcomes.",
-    how: 'Speak up if bins are missing, confusing, or incorrectly labelled; email facilities with your observations.',
-    source: 'Source: Paillé et al., 2022',
-    visual: 'suggest',
-    color: '#f3e5f5'
-  },
-  {
-    emoji: '📋',
-    title: 'Support Green Policies',
-    speech: "Individual actions are powerful — but collective action through policy is transformative! Join your organisation's green team. Vote for certified, sustainable suppliers. Make the sustainable choice the easy default.",
-    how: 'Participate in green teams; vote for sustainable procurement; advocate for certified suppliers.',
-    source: 'Source: Jankalová et al., 2025',
-    visual: 'policy',
-    color: '#e8f5e9'
-  },
-  {
-    emoji: '📣',
-    title: 'Spread the Word',
-    speech: "Sustainability is contagious in the best possible way! When you model good habits, you normalise them for everyone around you. Share what you know. Celebrate colleagues who make changes. Peer influence is incredibly powerful.",
-    how: 'Share tips with colleagues; celebrate wins; encourage habits; model sustainable behaviour for others.',
-    source: 'Source: Müller et al., 2025',
-    visual: 'spread',
-    color: '#e0f2f1'
-  }
+(function() {
+'use strict';
+
+const kActions = [
+  { emoji:'🖨️', title:'Print Less', speech:"Printing is one of the biggest sources of paper waste in any office! Set your printer to duplex — that's double-sided — and you'll cut paper use by up to 50% immediately.", how:'Set printer default to duplex; use digital signatures; share screens in meetings instead of printing handouts.', source:'Source: EPA Ireland, 2020', color:'#d8f3dc', visual:'printer' },
+  { emoji:'♻️', title:'Reusable Items', speech:"Every disposable cup you swap for a reusable one saves 11 grams of waste. Over 250 working days with 50 colleagues? The numbers get huge, really quickly!", how:'Bring your own bottle, coffee cup, and lunchbox to eliminate single-use packaging waste daily.', source:'Source: Müller et al., 2025', color:'#e8f5ee', visual:'cups' },
+  { emoji:'🗑️', title:'Correct Bin Use', speech:"Here's something that surprises people — ONE contaminated item in the recycling can invalidate the entire bin bag! Learn your office recycling system. Five minutes. It matters enormously.", how:'Learn the office recycling system; place items in the correct stream; avoid contamination which invalidates entire bins.', source:'Source: Lielāusis et al., 2025', color:'#e0f2f1', visual:'bins' },
+  { emoji:'⚡', title:'Switch Off', speech:"A monitor left on standby overnight uses 20 watts — doing absolutely nothing! That's 60 kWh per year, per monitor. Turning it off takes 15 seconds and has year-round impact.", how:'Turn off monitor, PC, and lights when leaving; use power-saving settings; unplug chargers when not in use.', source:'Source: EPA Ireland, 2020', color:'#fff8e1', visual:'power' },
+  { emoji:'📎', title:'Share Supplies', speech:"How many half-used pens are in your desk drawer right now? A shared, centralised stationery cupboard reduces over-purchasing and saves money. Use what exists before buying new!", how:'Use a centralised stationery cupboard; share resources rather than hoarding individual supplies at desks.', source:'Source: EPA Ireland, 2020', color:'#fef3e2', visual:'supplies' },
+  { emoji:'☁️', title:'Digital First', speech:"Going digital isn't just more convenient — it's more sustainable! Cloud storage, e-signatures, note apps — they all replace paper. The paper we never use is the paper we never waste.", how:'Use cloud storage, note apps, and e-signatures; avoid printing for internal documents and approvals.', source:'Source: EPA Ireland, 2020', color:'#e8f4fd', visual:'digital' },
+  { emoji:'🔧', title:'Repair & Reuse', speech:"Before you discard equipment, ask — can it be repaired? A screen replacement costs far less than manufacturing a new device. And when it's truly end-of-life, donate it!", how:'Fix broken equipment before discarding; donate old furniture and IT to charities or repair cafés.', source:'Source: CTC Cork / EPA, 2022', color:'#fce4ec', visual:'repair' },
+  { emoji:'💬', title:'Suggest Improvements', speech:"Employees notice sustainability problems before management — but often don't speak up! If there's no recycling bin near the printer, say so. Workplaces where staff speak up have significantly better outcomes.", how:'Speak up if bins are missing, confusing, or incorrectly labelled; email facilities with your observations.', source:'Source: Paillé et al., 2022', color:'#f3e5f5', visual:'suggest' },
+  { emoji:'📋', title:'Support Green Policies', speech:"Individual actions are powerful — but collective action through policy is transformative! Join your organisation's green team. Vote for certified, sustainable suppliers. Make the sustainable choice the easy default.", how:'Participate in green teams; vote for sustainable procurement; advocate for certified suppliers.', source:'Source: Jankalová et al., 2025', color:'#e8f5e9', visual:'policy' },
+  { emoji:'📣', title:'Spread the Word', speech:"Sustainability is contagious in the best possible way! When you model good habits, you normalise them for everyone around you. Share what you know. Celebrate colleagues who make changes. Peer influence is incredibly powerful.", how:'Share tips with colleagues; celebrate wins; encourage habits; model sustainable behaviour for others.', source:'Source: Müller et al., 2025', color:'#e0f2f1', visual:'spread' }
 ];
 
-const visuals = {
-  printer: `
-    <div class="vis-printer">
-      <div class="printer-body">
-        <div class="printer-slot"></div>
-        <div class="printer-light"></div>
+const kVisuals = {
+  printer: `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px">
+    <div style="width:110px;height:70px;background:#2d6a4f;border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 6px 20px rgba(0,0,0,0.15)">
+      <div style="width:80px;height:6px;background:#1a3d2b;border-radius:3px;position:absolute;top:20px"></div>
+      <div style="width:10px;height:10px;background:#52b788;border-radius:50%;position:absolute;top:16px;right:12px"></div>
+    </div>
+    <div style="width:70px;height:30px;background:#b7e4c7;border-radius:4px;margin-top:-4px;box-shadow:0 2px 8px rgba(0,0,0,0.1)"></div>
+    <div style="background:#52b788;color:#1a3d2b;font-size:12px;font-weight:800;padding:5px 14px;border-radius:999px">DUPLEX ✓</div>
+    <div style="font-size:12px;font-weight:800;color:#2d6a4f">Cut paper use by up to 50%</div>
+  </div>`,
+  cups: `<div style="display:flex;align-items:center;gap:20px;padding:20px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="font-size:11px;font-weight:800;color:#e63946">Single-use</div>
+      <div style="width:44px;height:54px;background:linear-gradient(180deg,#ddd,#bbb);border-radius:4px 4px 8px 8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#e63946">✕</div>
+    </div>
+    <div style="font-size:24px;color:#2d6a4f">→</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="font-size:11px;font-weight:800;color:#2d6a4f">Reusable</div>
+      <div style="width:44px;height:54px;background:linear-gradient(180deg,#52b788,#2d6a4f);border-radius:4px 4px 8px 8px;position:relative">
+        <div style="position:absolute;right:-10px;top:10px;width:12px;height:24px;border:3px solid #2d6a4f;border-left:none;border-radius:0 8px 8px 0"></div>
       </div>
-      <div class="paper-out"></div>
-      <div class="duplex-badge">DUPLEX ✓</div>
-      <div class="saving-txt">Cut paper use by up to 50%</div>
-    </div>`,
-  cups: `
-    <div class="vis-cups" style="position:relative">
-      <div class="saves-tag">−11g waste per cup</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div style="font-size:11px;font-weight:800;color:var(--red)">Single-use</div>
-        <div class="cup-disposable">
-          <div class="cross-over">✕</div>
-        </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;color:#2d6a4f;margin-left:8px">
+      <span>250 days/yr</span><span>× 50 staff</span>
+      <span style="color:#1a3d2b;font-size:14px">= Big impact!</span>
+      <span style="background:#d8f3dc;padding:3px 8px;border-radius:6px">−11g/cup</span>
+    </div>
+  </div>`,
+  bins: `<div style="display:flex;gap:14px;align-items:flex-end;padding:20px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="font-size:18px;animation:fall 1.5s infinite">🧃</div>
+      <div style="width:54px;height:70px;background:#52b788;border-radius:6px 6px 10px 10px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;box-shadow:0 4px 12px rgba(82,183,136,0.3)">
+        <span style="font-size:11px;font-weight:800;color:#1a3d2b;text-align:center">♻️<br>Recycle</span>
       </div>
-      <div class="arrow-replace">→</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div style="font-size:11px;font-weight:800;color:var(--g2)">Reusable</div>
-        <div class="cup-reusable"><div class="cup-handle"></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="width:54px;height:60px;background:#555;border-radius:6px 6px 10px 10px;opacity:0.5;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px">
+        <span style="font-size:11px;font-weight:800;color:#fff;text-align:center">🗑️<br>General</span>
       </div>
-      <div style="margin-left:12px;display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;color:var(--g2)">
-        <span>250 days/yr</span>
-        <span>× 50 staff</span>
-        <span style="color:var(--g3);font-size:14px">= Big impact!</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="width:54px;height:60px;background:#8b6914;border-radius:6px 6px 10px 10px;opacity:0.5;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px">
+        <span style="font-size:11px;font-weight:800;color:#fff;text-align:center">🍂<br>Compost</span>
       </div>
-    </div>`,
-  bins: `
-    <div class="vis-bins">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div class="bin bin-green">
-          <div class="bin-lid"></div>
-          <div class="item-fall">🧃</div>
-          <div class="correct-glow"></div>
-          <div class="bin-label">♻️<br>Recycling</div>
-        </div>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:#1a3d2b;max-width:90px;line-height:1.4;margin-left:8px">1 wrong item = whole bag to landfill!</div>
+  </div>`,
+  power: `<div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px">
+    <div style="width:120px;height:80px;background:#222;border-radius:8px;display:flex;align-items:center;justify-content:center" id="kmon">
+      <div style="color:#52b788;font-size:11px;font-weight:700;text-align:center">20W overnight<br>= 60kWh/year</div>
+    </div>
+    <div style="width:14px;height:20px;background:#333;margin-top:-2px"></div>
+    <div style="width:60px;height:6px;background:#444;border-radius:3px"></div>
+    <button onclick="kToggleMon(this)" style="background:#52b788;color:#1a3d2b;border:none;border-radius:999px;padding:8px 20px;font-weight:800;cursor:pointer;font-size:13px">⏻ Toggle Off</button>
+    <div id="k-kwh" style="font-size:12px;font-weight:800;color:#2d6a4f">Saving: 0 kWh/yr</div>
+  </div>`,
+  supplies: `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px">
+    <div style="display:flex;gap:14px;font-size:28px">👩‍💼 👨‍💼 🧑‍💼</div>
+    <div style="font-size:16px;color:#2d6a4f;font-weight:700">↓ share ↓</div>
+    <div style="background:#fff;border:2px solid #52b788;border-radius:10px;padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;font-size:20px">
+      ✏️ 📌 ✂️ 📎 🖊️ 📝
+    </div>
+    <div style="font-size:12px;font-weight:800;color:#2d6a4f">One shared cupboard for all</div>
+  </div>`,
+  digital: `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px">
+    <div style="font-size:40px">☁️</div>
+    <div style="font-size:20px;color:#2d6a4f">↑</div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="width:40px;height:5px;background:#ccc;border-radius:2px"></div>
+        <div style="width:40px;height:5px;background:#ccc;border-radius:2px"></div>
+        <div style="width:40px;height:5px;background:#ccc;border-radius:2px"></div>
+        <div style="font-size:10px;color:#aaa;font-weight:700">Paper</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div class="bin bin-black" style="opacity:0.6">
-          <div class="bin-lid"></div>
-          <div class="bin-label">🗑️<br>General</div>
-        </div>
+      <span style="font-size:20px;color:#52b788">→</span>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+        <div style="background:#52b788;color:#1a3d2b;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px">✍️ e-Signature</div>
+        <div style="font-size:11px;font-weight:800;color:#2d6a4f">Cloud Storage</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div class="bin bin-blue" style="opacity:0.6">
-          <div class="bin-lid"></div>
-          <div class="bin-label">🍂<br>Compost</div>
-        </div>
-      </div>
-      <div style="font-size:11px;font-weight:800;color:var(--g1);max-width:80px;line-height:1.4">
-        1 wrong item = whole bag to landfill!
-      </div>
-    </div>`,
-  power: `
-    <div class="vis-power">
-      <div class="monitor">
-        <div class="monitor-screen on" id="mon-screen">
-          <div class="screen-content">20W overnight<br>= 60kWh/year</div>
-        </div>
-      </div>
-      <div class="monitor-stand"></div>
-      <div class="monitor-base"></div>
-      <div class="power-btn" onclick="toggleMonitor()">
-        <div class="power-icon">⏻</div>
-      </div>
-      <div class="kwh-save" id="kwh-counter">Saving: 0 kWh</div>
-    </div>`,
-  supplies: `
-    <div class="vis-supplies">
-      <div class="people-row">
-        <span class="person-icon">👩‍💼</span>
-        <span class="person-icon">👨‍💼</span>
-        <span class="person-icon">🧑‍💼</span>
-      </div>
-      <div class="share-arrow">↓ share ↓</div>
-      <div class="cupboard">
-        <span class="supply-item">✏️</span>
-        <span class="supply-item">📌</span>
-        <span class="supply-item">✂️</span>
-        <span class="supply-item">📎</span>
-        <span class="supply-item">🖊️</span>
-        <span class="supply-item">📝</span>
-      </div>
-      <div style="font-size:12px;font-weight:800;color:var(--g2)">One shared cupboard for all</div>
-    </div>`,
-  digital: `
-    <div class="vis-digital">
-      <div class="cloud-icon">☁️</div>
-      <div class="upload-line"></div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <div class="paper-stack">
-          <div class="paper-sheet"></div>
-          <div class="paper-sheet"></div>
-          <div class="paper-sheet"></div>
-          <div style="font-size:10px;color:#aaa;font-weight:700">Paper files</div>
-        </div>
-        <span style="font-size:22px;color:var(--g3)">→</span>
-        <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
-          <div class="esign-badge">✍️ e-Signature</div>
-          <div style="font-size:11px;font-weight:800;color:var(--g3)">Cloud Storage</div>
-        </div>
-      </div>
-      <div style="font-size:12px;font-weight:800;color:var(--g2)">Paper we never use = paper we never waste</div>
-    </div>`,
-  repair: `
-    <div class="vis-repair">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div style="font-size:11px;font-weight:800;color:var(--red)">Broken</div>
-        <div class="laptop-broken">
-          <div class="crack"></div>
-          <span style="font-size:22px">💻</span>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div class="wrench">🔧</div>
-        <div class="arrow-fix">→</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div style="font-size:11px;font-weight:800;color:var(--g2)">Fixed!</div>
-        <div class="laptop-fixed">
-          <div class="checkmark-big">✓</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;color:var(--g2)">
-        <span>Or donate to:</span>
-        <span style="color:var(--g3)">🏢 CTC Cork</span>
-        <span style="color:var(--g3)">♻️ Repair Cafés</span>
-      </div>
-    </div>`,
-  suggest: `
-    <div class="vis-suggest" style="position:relative">
-      <div class="idea-stars">✨</div>
-      <div class="megaphone">📢</div>
-      <div class="speech-bubbles">
-        <div class="bubble-small b1">No recycling bin near printer? Say so!</div>
-        <div class="bubble-small b2">Bin labels confusing? Email facilities!</div>
-      </div>
-      <div style="font-size:12px;font-weight:800;color:var(--g1);text-align:center;max-width:220px">
-        Research: workplaces where staff speak up = higher sustainability outcomes
-      </div>
-    </div>`,
-  policy: `
-    <div class="vis-policy">
-      <div class="team-circle">
-        <span class="team-person">👩‍💼</span>
-        <span class="team-person">👨‍💼</span>
-        <span class="team-person">🧑‍💼</span>
-        <span class="team-person">👩‍💻</span>
-      </div>
-      <div style="font-size:13px;font-weight:800;color:var(--g2)">GREEN TEAM</div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <div class="policy-doc">
-          <div class="doc-line green"></div>
-          <div class="doc-line"></div>
-          <div class="doc-line green"></div>
-          <div class="doc-line"></div>
-          <div class="doc-line green"></div>
-        </div>
-        <div class="doc-check">✅</div>
-        <div style="font-size:12px;font-weight:700;color:var(--g2);max-width:90px;line-height:1.5">
-          Certified<br>Sustainable<br>Suppliers
-        </div>
-      </div>
-    </div>`,
-  spread: `
-    <div class="vis-spread">
-      <div class="network">
-        <svg style="position:absolute;inset:0" width="200" height="160">
-          <line x1="100" y1="80" x2="30" y2="30" stroke="#52b788" stroke-width="2" opacity="0.5">
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite"/>
-          </line>
-          <line x1="100" y1="80" x2="170" y2="30" stroke="#52b788" stroke-width="2" opacity="0.5">
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.8s" repeatCount="indefinite"/>
-          </line>
-          <line x1="100" y1="80" x2="20" y2="130" stroke="#52b788" stroke-width="2" opacity="0.5">
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/>
-          </line>
-          <line x1="100" y1="80" x2="180" y2="130" stroke="#52b788" stroke-width="2" opacity="0.5">
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.3s" repeatCount="indefinite"/>
-          </line>
-        </svg>
-        <div class="node" style="top:56px;left:78px">🌟</div>
-        <div class="node" style="top:10px;left:10px;background:var(--g4);color:var(--g1)">👩</div>
-        <div class="node" style="top:10px;right:10px;background:var(--g4);color:var(--g1)">👨</div>
-        <div class="node" style="bottom:10px;left:0;background:var(--amber);color:white">🧑</div>
-        <div class="node" style="bottom:10px;right:0;background:var(--amber);color:white">👩</div>
-      </div>
-      <div class="spread-tag">Peer influence = strongest predictor of lasting change</div>
-    </div>`
+    </div>
+    <div style="font-size:12px;font-weight:800;color:#2d6a4f">Paper we never use = paper we never waste</div>
+  </div>`,
+  repair: `<div style="display:flex;align-items:center;gap:16px;padding:20px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="font-size:11px;font-weight:800;color:#e63946">Broken</div>
+      <div style="position:relative"><span style="font-size:32px;opacity:0.6">💻</span><span style="position:absolute;top:-4px;left:50%;transform:translateX(-50%);font-size:18px">💥</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="font-size:24px">🔧</div><div style="font-size:16px;color:#2d6a4f">→</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="font-size:11px;font-weight:800;color:#2d6a4f">Fixed!</div>
+      <div style="font-size:32px">💻</div>
+      <div style="background:#52b788;color:#1a3d2b;font-size:16px;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center">✓</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;color:#2d6a4f;margin-left:6px">
+      <span>Or donate to:</span><span>🏢 CTC Cork</span><span>♻️ Repair Cafés</span>
+    </div>
+  </div>`,
+  suggest: `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px">
+    <div style="display:flex;gap:10px;font-size:22px">👩‍💼 💬 👨‍💼</div>
+    <div style="background:#f3e5f5;border-radius:10px;padding:10px 16px;max-width:200px;text-align:center">
+      <div style="font-size:12px;font-weight:700;color:#4a148c">"The recycling bin near the printer is missing!"</div>
+    </div>
+    <div style="font-size:16px">↓</div>
+    <div style="background:#e8f5e9;border-radius:10px;padding:10px 16px;text-align:center">
+      <div style="font-size:12px;font-weight:700;color:#1a3d2b">✅ Facilities team adds bin</div>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:#2d6a4f">Speaking up = biggest per-person impact</div>
+  </div>`,
+  policy: `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px">
+    <div style="font-size:32px">📋</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <div style="background:#e8f5e9;border:2px solid #52b788;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:#1a3d2b">🌿 Green Team</div>
+      <div style="background:#e8f5e9;border:2px solid #52b788;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:#1a3d2b">✅ Certified Suppliers</div>
+      <div style="background:#e8f5e9;border:2px solid #52b788;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:#1a3d2b">📊 Vote for Policy</div>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:#2d6a4f">Collective action through policy = transformative</div>
+  </div>`,
+  spread: `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px">
+    <div style="position:relative;width:140px;height:100px">
+      <div style="position:absolute;top:30px;left:50%;transform:translateX(-50%);font-size:26px">🌟</div>
+      <div style="position:absolute;top:5px;left:10px;font-size:22px">👩</div>
+      <div style="position:absolute;top:5px;right:10px;font-size:22px">👨</div>
+      <div style="position:absolute;bottom:5px;left:0;font-size:22px">🧑</div>
+      <div style="position:absolute;bottom:5px;right:0;font-size:22px">👩</div>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:#2d6a4f;text-align:center">Peer influence = strongest predictor of lasting change</div>
+  </div>`
 };
 
-// ── STATE ──
-let current = 0;
-let talking = false;
-let autoplay = false;
-let autoTimer = null;
-let speechTimer = null;
-let kwhTimer = null;
+let kCurrent = 0;
+let kAutoplay = false;
+let kAutoTimer = null;
+let kSpeechTimer = null;
+let kKwhTimer = null;
 
-// ── INIT ──
-function startKiebCourse() {
-  document.getElementById('intro-screen').classList.add('gone');
-  setTimeout(() => {
-    document.getElementById('intro-screen').style.display = 'none';
-    buildProgressDots();
-    loadAction(0);
-    kiebTalk(2000);
-  }, 500);
-}
-
-function buildProgressDots() {
-  const wrap = document.getElementById('progress-bar-wrap');
-  wrap.innerHTML = actions.map((a,i) => 
-    `<div class="prog-dot ${i===0?'active':''}" id="dot-${i}" onclick="jumpTo(${i})" title="${a.title}"></div>`
+function kBuildDots() {
+  const wrap = document.getElementById('k-progress');
+  if (!wrap) return;
+  wrap.innerHTML = kActions.map((a,i) =>
+    `<div class="k-dot ${i===0?'active':''}" id="kdot-${i}" onclick="kJump(${i})" title="${a.title}"></div>`
   ).join('');
 }
 
-function loadAction(idx, dir=1) {
-  current = idx;
-  const a = actions[idx];
+function kLoadAction(idx) {
+  kCurrent = idx;
+  const a = kActions[idx];
+  const right = document.getElementById('k-right');
+  if (!right) return;
 
-  // Update content with animation
-  const cp = document.getElementById('content-panel');
-  cp.classList.add('screen-exit');
+  right.classList.add('k-anim-exit');
   setTimeout(() => {
-    cp.classList.remove('screen-exit');
+    right.classList.remove('k-anim-exit');
 
-    document.getElementById('action-emoji').textContent = a.emoji;
-    document.getElementById('action-emoji').style.background = a.color;
-    document.getElementById('action-title').textContent = a.title;
-    document.getElementById('action-subtitle').textContent = `ACTION ${idx+1} OF 10`;
-    document.getElementById('how-to-text').textContent = a.how;
-    document.getElementById('source-tag').textContent = a.source;
-    document.getElementById('action-badge').textContent = idx+1;
-    document.getElementById('visual-stage').style.background = `linear-gradient(135deg,${a.color},${a.color}cc)`;
-    document.getElementById('visual-stage').innerHTML = visuals[a.visual];
-    document.getElementById('counter-label').textContent = `${idx+1} / 10`;
+    document.getElementById('k-emoji-box').textContent = a.emoji;
+    document.getElementById('k-emoji-box').style.background = a.color;
+    document.getElementById('k-action-num').textContent = `ACTION ${idx+1} OF 10`;
+    document.getElementById('k-action-name').textContent = a.title;
+    document.getElementById('k-howto-text').textContent = a.how;
+    document.getElementById('k-source').textContent = a.source;
+    document.getElementById('k-badge').textContent = idx+1;
+    document.getElementById('k-counter').textContent = `${idx+1} / 10`;
+    const vis = document.getElementById('k-visual');
+    vis.style.background = `linear-gradient(135deg,${a.color},${a.color}cc)`;
+    vis.innerHTML = kVisuals[a.visual] || '';
 
-    // Speech
-    setSpeech(a.speech);
-    kiebTalk(3000);
+    kSetSpeech(a.speech);
+    kTalk(3000);
+    if (a.visual === 'power') kStartKwh();
 
-    // Start KWH counter for action 4
-    if (a.visual === 'power') startKwhCounter();
+    right.classList.add('k-anim-enter');
+    setTimeout(() => right.classList.remove('k-anim-enter'), 400);
+    if (kAutoplay) kSchedule();
+  }, 250);
 
-    cp.classList.add('screen-enter');
-    setTimeout(() => cp.classList.remove('screen-enter'), 500);
-  }, 280);
-
-  // Progress dots
-  document.querySelectorAll('.prog-dot').forEach((d,i) => {
-    d.className = 'prog-dot';
+  // Dots
+  document.querySelectorAll('.k-dot').forEach((d,i) => {
+    d.className = 'k-dot';
     if (i < idx) d.classList.add('done');
     if (i === idx) d.classList.add('active');
   });
 
-  // Nav buttons
-  document.getElementById('btn-prev').style.opacity = idx === 0 ? '0.4' : '1';
-  document.getElementById('btn-next').textContent = idx === 9 ? 'Finish 🎉' : 'Next →';
+  // Buttons
+  const prev = document.getElementById('k-btn-prev');
+  const next = document.getElementById('k-btn-next');
+  if (prev) prev.style.opacity = idx === 0 ? '0.4' : '1';
+  if (next) next.textContent = idx === 9 ? 'Finish 🎉' : 'Next →';
 }
 
-function setSpeech(text) {
-  const el = document.getElementById('speech-text');
+function kSetSpeech(text) {
+  const el = document.getElementById('k-speech-text');
+  if (!el) return;
   el.style.opacity = 0;
-  setTimeout(() => {
-    el.textContent = text;
-    el.style.opacity = 1;
-    el.style.transition = 'opacity 0.4s';
-  }, 200);
+  setTimeout(() => { el.textContent = text; el.style.opacity = 1; el.style.transition = 'opacity 0.3s'; }, 150);
 }
 
-function kiebTalk(duration=2500) {
-  const wrap = document.getElementById('kieb-wrap');
-  clearTimeout(speechTimer);
-  wrap.className = 'talking';
-  speechTimer = setTimeout(() => {
-    wrap.className = 'idle';
-  }, duration);
+function kTalk(dur=2500) {
+  const ch = document.getElementById('k-char');
+  if (!ch) return;
+  clearTimeout(kSpeechTimer);
+  ch.className = 'talking';
+  kSpeechTimer = setTimeout(() => { ch.className = 'idle'; }, dur);
 }
 
-function nextAction() {
-  if (current >= 9) {
-    showOutro();
-    return;
-  }
-  loadAction(current + 1, 1);
+function kNext() {
+  clearTimeout(kAutoTimer);
+  if (kCurrent >= 9) { kShowOutro(); return; }
+  kLoadAction(kCurrent + 1);
 }
 
-function prevAction() {
-  if (current <= 0) return;
-  loadAction(current - 1, -1);
+function kPrev() {
+  clearTimeout(kAutoTimer);
+  if (kCurrent <= 0) return;
+  kLoadAction(kCurrent - 1);
 }
 
-function jumpTo(idx) {
-  if (idx === current) return;
-  loadAction(idx);
+function kJump(idx) {
+  clearTimeout(kAutoTimer);
+  if (idx === kCurrent) return;
+  kLoadAction(idx);
 }
 
-function toggleAutoplay() {
-  autoplay = !autoplay;
-  const btn = document.getElementById('autoplay-btn');
-  btn.classList.toggle('on', autoplay);
-  btn.textContent = autoplay ? '⏸ Pause' : '▶ Auto-play';
-  if (autoplay) scheduleAuto();
-  else clearTimeout(autoTimer);
+function kToggleAutoplay() {
+  kAutoplay = !kAutoplay;
+  const btn = document.getElementById('k-autoplay-btn');
+  if (!btn) return;
+  btn.classList.toggle('on', kAutoplay);
+  btn.textContent = kAutoplay ? '⏸ Pause' : '▶ Auto-play';
+  if (kAutoplay) kSchedule();
+  else clearTimeout(kAutoTimer);
 }
 
-function scheduleAuto() {
-  clearTimeout(autoTimer);
-  if (!autoplay) return;
-  autoTimer = setTimeout(() => {
-    if (current >= 9) { showOutro(); return; }
-    nextAction();
-    scheduleAuto();
+function kSchedule() {
+  clearTimeout(kAutoTimer);
+  if (!kAutoplay) return;
+  kAutoTimer = setTimeout(() => {
+    if (kCurrent >= 9) { kShowOutro(); return; }
+    kAutoplay && kLoadAction(kCurrent + 1);
   }, 6000);
 }
 
-function startKwhCounter() {
-  clearInterval(kwhTimer);
+function kStartKwh() {
+  clearInterval(kKwhTimer);
   let val = 0;
-  const el = document.getElementById('kwh-counter');
+  const el = document.getElementById('k-kwh');
   if (!el) return;
-  kwhTimer = setInterval(() => {
+  kKwhTimer = setInterval(() => {
     val = Math.min(val + 1, 60);
-    if (el) el.textContent = `Saving: ${val} kWh/yr`;
-    if (val >= 60) clearInterval(kwhTimer);
+    const el2 = document.getElementById('k-kwh');
+    if (el2) el2.textContent = `Saving: ${val} kWh/yr`;
+    if (val >= 60) clearInterval(kKwhTimer);
   }, 60);
 }
 
-function toggleMonitor() {
-  const s = document.getElementById('mon-screen');
-  if (!s) return;
-  s.classList.toggle('off');
-  s.classList.toggle('on');
-  if (s.classList.contains('off')) {
-    s.innerHTML = '<div style="font-size:20px">💤</div>';
+function kToggleMon(btn) {
+  const mon = document.getElementById('kmon');
+  if (!mon) return;
+  const isOn = mon.style.background !== 'rgb(34, 34, 34)' && mon.innerHTML.includes('20W');
+  if (isOn) {
+    mon.style.background = '#111';
+    mon.innerHTML = '<div style="font-size:22px">💤</div>';
+    btn.textContent = '⏻ Toggle On';
   } else {
-    s.innerHTML = '<div class="screen-content">20W overnight<br>= 60kWh/year</div>';
+    mon.style.background = '#222';
+    mon.innerHTML = '<div style="color:#52b788;font-size:11px;font-weight:700;text-align:center">20W overnight<br>= 60kWh/year</div>';
+    btn.textContent = '⏻ Toggle Off';
   }
-  kiebTalk(1500);
+  kTalk(1500);
 }
 
-function showOutro() {
-  clearTimeout(autoTimer);
-  autoplay = false;
-  document.getElementById('autoplay-btn').classList.remove('on');
-  document.getElementById('autoplay-btn').textContent = '▶ Auto-play';
-
-  const outro = document.getElementById('outro-screen');
+function kShowOutro() {
+  clearTimeout(kAutoTimer);
+  kAutoplay = false;
+  const btn = document.getElementById('k-autoplay-btn');
+  if (btn) { btn.classList.remove('on'); btn.textContent = '▶ Auto-play'; }
+  const outro = document.getElementById('k-outro');
+  if (!outro) return;
   outro.classList.add('show');
-  const grid = document.getElementById('outro-grid');
-  grid.innerHTML = actions.map((a,i) =>
-    `<div class="outro-action" style="animation-delay:${i*0.08}s">${a.emoji}<br>${a.title}</div>`
+  const grid = document.getElementById('k-outro-grid');
+  if (grid) grid.innerHTML = kActions.map((a,i) =>
+    `<div class="k-outro-item" style="animation-delay:${i*0.08}s">${a.emoji}<br>${a.title}</div>`
   ).join('');
-  kiebTalk(2000);
-  setSpeech("You did it! You've learned all 10 actions. Now go out there and make a difference — starting with ONE action this week! 🌟");
+  kTalk(2000);
+  kSetSpeech("You did it! All 10 actions learned. Go make a difference — start with ONE action this week! 🌟");
 }
 
-function restart() {
-  document.getElementById('outro-screen').classList.remove('show');
-  loadAction(0);
+function kRestart() {
+  const outro = document.getElementById('k-outro');
+  if (outro) outro.classList.remove('show');
+  kAutoplay = false;
+  const btn = document.getElementById('k-autoplay-btn');
+  if (btn) { btn.classList.remove('on'); btn.textContent = '▶ Auto-play'; }
+  kLoadAction(0);
 }
+
+function kStart() {
+  const intro = document.getElementById('k-intro');
+  if (!intro) return;
+  intro.classList.add('gone');
+  setTimeout(() => { intro.style.display = 'none'; }, 450);
+  kBuildDots();
+  kLoadAction(0);
+  kTalk(2500);
+}
+
+// Init dots on load
+document.addEventListener('DOMContentLoaded', function() {
+  kBuildDots();
+});
+
+// Export to global scope
+window.kStart = kStart;
+window.kNext = kNext;
+window.kPrev = kPrev;
+window.kJump = kJump;
+window.kToggleAutoplay = kToggleAutoplay;
+window.kToggleMon = kToggleMon;
+window.kRestart = kRestart;
+
+})();
 </script>
-</div>
 
 
     <div class="nav-btns">
@@ -3739,7 +2903,7 @@ function restart() {
         </div>
         <div style="margin-top:12px;background:#fff8e7;border:1px solid #f4a261;border-radius:var(--radius-sm);padding:12px 16px;font-size:12px;color:#7a4a00;line-height:1.7">
           <strong>&#128204; Video not playing?
-          <br><a href="https://canva.link/n4tuocgdvm81cgr" target="_blank" style="color:var(--earth);font-weight:600;text-decoration:underline">Open HSBC video in Canva &#8599;</a>
+          <br><a href="https://canva.link/n4tuocgdvm81cgr" target="_blank" style="color:var(--earth);font-weight:600;text-decoration:underline">Open HSBC video in Canva &#8599;</a></strong>
         </div>
       </div>
 
@@ -3751,7 +2915,7 @@ function restart() {
         </div>
         <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius-sm);overflow:hidden;background:#000;box-shadow:var(--shadow-md)">
           <iframe
-            src="https://www.youtube.com/"
+            src="https://www.youtube.com/embed/5cw5jh5n66M"
             title="Going Paperless - Wexford County Council"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -5486,6 +4650,7 @@ function submitFeedback() {
   showToast('✅ Feedback submitted — thank you!');
 }
 
+function roboSend() {
   if (roboIsTyping) return;
   const input = document.getElementById('robo-input');
   const text = input.value.trim();
