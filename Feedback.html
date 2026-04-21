@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey Unit</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #f4f6f8;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 16px;
+  }
+
+  .container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px 48px 48px;
+    max-width: 780px;
+    width: 100%;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+
+  h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.75rem;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+    color: #555;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #e2e6ea;
+    margin-bottom: 18px;
+  }
+
+  .question-count {
+    text-align: right;
+    font-size: 0.82rem;
+    color: #888;
+    margin-bottom: 14px;
+  }
+
+  .question-card {
+    border: 1px solid #e2e6ea;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .question-card:focus-within {
+    box-shadow: 0 0 0 2px #4a90d9;
+  }
+
+  .question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: #fff;
+    transition: background 0.15s;
+  }
+
+  .question-header:hover { background: #f9fafb; }
+
+  .question-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .q-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1.5px solid #d0d7de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    background: #fff;
+  }
+
+  .question-label {
+    font-size: 0.97rem;
+    color: #1a1a2e;
+    font-weight: 600;
+  }
+
+  .q-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .btn-icon:hover { background: #f0f2f5; color: #333; }
+
+  .chevron {
+    transition: transform 0.25s ease;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .question-card.open .chevron { transform: rotate(180deg); }
+
+  .question-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid #eef0f2;
+    background: #fafbfc;
+    animation: slideDown 0.2s ease;
+  }
+
+  .question-card.open .question-body { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Star rating */
+  .star-group {
+    display: flex;
+    gap: 10px;
+    padding-top: 16px;
+  }
+
+  .star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #d0d7de;
+    transition: color 0.15s, transform 0.1s;
+    line-height: 1;
+  }
+
+  .star-btn:hover,
+  .star-btn.active { color: #f5a623; transform: scale(1.15); }
+
+  /* Radio / Multiple choice */
+  .radio-group { padding-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.93rem;
+    color: #333;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1.5px solid #e2e6ea;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .radio-label:hover { border-color: #4a90d9; background: #f0f6ff; }
+
+  .radio-label input[type="radio"] { accent-color: #4a90d9; width: 16px; height: 16px; }
+
+  /* Textarea */
+  .text-area {
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border: 1.5px solid #e2e6ea;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.93rem;
+    color: #333;
+    resize: vertical;
+    min-height: 90px;
+    outline: none;
+    transition: border-color 0.15s;
+    background: #fff;
+  }
+
+  .text-area:focus { border-color: #4a90d9; }
+
+  /* NPS scale */
+  .nps-group {
+    display: flex;
+    gap: 8px;
+    padding-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .nps-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    border: 1.5px solid #e2e6ea;
+    background: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #555;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .nps-btn:hover { background: #4a90d9; border-color: #4a90d9; color: #fff; }
+  .nps-btn.active { background: #1a6bbf; border-color: #1a6bbf; color: #fff; }
+
+  .nps-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: #888;
+    padding-top: 6px;
+  }
+
+  /* Submit */
+  .submit-wrap {
+    margin-top: 32px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-submit {
+    background: #1a6bbf;
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 7px;
+    font-size: 0.97rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-submit:hover { background: #145399; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 24px;
+    background: #eaf7f0;
+    border-radius: 8px;
+    color: #1d7a4b;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Survey Unit</h1>
+  <p class="subtitle">Your feedback helps us improve this course for future learners. Please take 2 minutes to share your thoughts. Every response is read and valued.</p>
+  <hr class="divider">
+  <div class="question-count">5 questions in total</div>
+
+  <!-- Q1: Star Rating -->
+  <div class="question-card open" id="q1">
+    <div class="question-header" onclick="toggleCard('q1')">
+      <div class="question-left">
+        <div class="q-icon">⭐</div>
+        <span class="question-label">Overall, how would you rate this course?</span>
+      </div>
+      <div class="q-actions">
+        <button class="btn-icon" title="Options">⋮</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="question-body">
+      <div class="star-group" id="stars">
+        <button class="star-btn" data-val="1" onclick="setStars(1)" title="1 star">★</button>
+        <button class="star-btn" data-val="2" onclick="setStars(2)" title="2 stars">★</button>
+        <button class="star-btn" data-val="3" onclick="setStars(3)" title="3 stars">★</button>
+        <button class="star-btn" data-val="4" onclick="setStars(4)" title="4 stars">★</button>
+        <button class="star-btn" data-val="5" onclick="setStars(5)" title="5 stars">★</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2: Multiple choice -->
+  <div class="question-card" id="q2">
+    <div class="question-header" onclick="toggleCard('q2')">
+      <div class="question-left">
+        <div class="q-icon">☰</div>
+        <span class="question-label">Which module did you find most useful?</span>
+      </div>
+      <div class="q-actions">
+        <button class="btn-icon">⋮</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="question-body">
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q2" value="Module 1 - Context & SDG 12"> Module 1 - Context &amp; SDG 12</label>
+        <label class="radio-label"><input type="radio" name="q2" value="Module 2 - Waste Sources"> Module 2 - Waste Sources</label>
+        <label class="radio-label"><input type="radio" name="q2" value="Module 3 - Practical Actions"> Module 3 - Practical Actions</label>
+        <label class="radio-label"><input type="radio" name="q2" value="Module 4 - Measure & Act All modules equally"> Module 4 - Measure &amp; Act All modules equally</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3: Long text -->
+  <div class="question-card" id="q3">
+    <div class="question-header" onclick="toggleCard('q3')">
+      <div class="question-left">
+        <div class="q-icon">AB</div>
+        <span class="question-label">What was your biggest takeaway from this course?</span>
+      </div>
+      <div class="q-actions">
+        <button class="btn-icon">⋮</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="question-body">
+      <textarea class="text-area" id="q3text" placeholder="Share your thoughts…"></textarea>
+    </div>
+  </div>
+
+  <!-- Q4: Long text -->
+  <div class="question-card" id="q4">
+    <div class="question-header" onclick="toggleCard('q4')">
+      <div class="question-left">
+        <div class="q-icon">AB</div>
+        <span class="question-label">What could we improve?</span>
+      </div>
+      <div class="q-actions">
+        <button class="btn-icon">⋮</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="question-body">
+      <textarea class="text-area" id="q4text" placeholder="Your suggestions help us improve…"></textarea>
+    </div>
+  </div>
+
+  <!-- Q5: NPS -->
+  <div class="question-card" id="q5">
+    <div class="question-header" onclick="toggleCard('q5')">
+      <div class="question-left">
+        <div class="q-icon">💬</div>
+        <span class="question-label">How likely are you to recommend this course to a colleague?</span>
+      </div>
+      <div class="q-actions">
+        <button class="btn-icon">⋮</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="question-body">
+      <div class="nps-group" id="nps">
+        <button class="nps-btn" onclick="setNPS(0)">0</button>
+        <button class="nps-btn" onclick="setNPS(1)">1</button>
+        <button class="nps-btn" onclick="setNPS(2)">2</button>
+        <button class="nps-btn" onclick="setNPS(3)">3</button>
+        <button class="nps-btn" onclick="setNPS(4)">4</button>
+        <button class="nps-btn" onclick="setNPS(5)">5</button>
+        <button class="nps-btn" onclick="setNPS(6)">6</button>
+        <button class="nps-btn" onclick="setNPS(7)">7</button>
+        <button class="nps-btn" onclick="setNPS(8)">8</button>
+        <button class="nps-btn" onclick="setNPS(9)">9</button>
+        <button class="nps-btn" onclick="setNPS(10)">10</button>
+      </div>
+      <div class="nps-labels">
+        <span>Not likely at all</span>
+        <span>Extremely likely</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="btn-submit" onclick="submitSurvey()">Submit Survey</button>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    ✅ Thank you for your feedback! Your response has been recorded.
+  </div>
+</div>
+
+<script>
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  let starVal = 0;
+  function setStars(n) {
+    starVal = n;
+    document.querySelectorAll('.star-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i < n);
+    });
+  }
+
+  let npsVal = null;
+  function setNPS(n) {
+    npsVal = n;
+    document.querySelectorAll('.nps-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === n);
+    });
+  }
+
+  async function submitSurvey() {
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const data = {
+      "Overall Rating (Stars)": starVal || "Not answered",
+      "Most Useful Module": q2 ? q2.value : "Not answered",
+      "Biggest Takeaway": document.getElementById('q3text').value || "Not answered",
+      "What Could Be Improved": document.getElementById('q4text').value || "Not answered",
+      "Likelihood to Recommend (NPS)": npsVal !== null ? npsVal : "Not answered"
+    };
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = "Submitting...";
+    btn.disabled = true;
+    try {
+      const res = await fetch("https://formspree.io/f/xkokqjao", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById('successMsg').style.display = 'block';
+        document.querySelector('.submit-wrap').style.display = 'none';
+        document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        btn.textContent = "Submit Survey";
+        btn.disabled = false;
+        alert("Submission failed. Please try again.");
+      }
+    } catch(e) {
+      btn.textContent = "Submit Survey";
+      btn.disabled = false;
+      alert("Network error. Please try again.");
+    }
+  }
+</script>
+</body>
+</html>
