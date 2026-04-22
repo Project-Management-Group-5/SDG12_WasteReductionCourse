@@ -1290,6 +1290,9 @@ body {
   <div class="sidebar-item" data-screen="m3-checklist" onclick="goTo('m3-checklist',this)">
     <span class="s-icon">☑️</span> Daily Checklist <span class="s-badge"></span>
   </div>
+  <div class="sidebar-item" data-screen="m3-sdg13" onclick="goTo('m3-sdg13',this)">
+    <span class="s-icon">🌡️</span> SDG 12 → SDG 13 <span class="s-badge"></span>
+  </div>
   <div class="sidebar-item" data-screen="m3-quiz" onclick="goTo('m3-quiz',this)">
     <span class="s-icon">📝</span> Quiz 3 <span class="s-badge"></span>
   </div>
@@ -3003,10 +3006,499 @@ window.kRestart = kRestart;
     </div>
     <div class="nav-btns">
       <button class="nav-btn nav-btn-prev" onclick="goTo('m3-cases')">← Case Studies</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m3-sdg13')">SDG 12 → SDG 13 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= M3: SDG13 LINK ============================= -->
+<div id="screen-m3-sdg13" class="screen">
+  <div class="module-header">
+    <div class="module-badge">🌡️ Module 3 · Climate Connection</div>
+    <h1>From SDG 12 to SDG 13: How Your Actions Fight Climate Change</h1>
+    <p>Everything you've learned and practised in this course doesn't just reduce waste. It directly protects our climate. Discover the powerful chain reaction from office habits to global impact.</p>
+  </div>
+  <div class="content-body">
+
+    <style>
+      /* SDG Bridge Banner */
+      .sdg-bridge {
+        display:flex; align-items:center; justify-content:center; gap:16px;
+        background: linear-gradient(135deg,#1b4332,#0b2243);
+        border-radius:16px; padding:28px 24px; margin-bottom:28px;
+        flex-wrap:wrap; text-align:center;
+      }
+      .sdg-pill {
+        background:rgba(255,255,255,0.12); border:2px solid rgba(110,231,160,0.4);
+        border-radius:12px; padding:16px 22px; color:#fff; min-width:130px;
+      }
+      .sdg-pill .sp-num { font-size:2rem; font-weight:900; color:#6ee7a0; display:block; }
+      .sdg-pill .sp-label { font-size:0.75rem; opacity:0.8; margin-top:4px; display:block; letter-spacing:0.05em; text-transform:uppercase; }
+      .sdg-arrow { font-size:2.2rem; color:#6ee7a0; animation: pulse-arrow 1.5s ease-in-out infinite; }
+      @keyframes pulse-arrow { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.2)} }
+
+      /* Connection chain */
+      .chain-grid {
+        display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+        gap:16px; margin-bottom:28px;
+      }
+      .chain-card {
+        background:#fff; border-radius:14px; border:2px solid #e0ebe0;
+        padding:0; overflow:hidden; cursor:pointer;
+        transition:transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        opacity:0; transform:translateY(20px);
+      }
+      .chain-card.visible {
+        animation: cardIn 0.5s ease forwards;
+      }
+      @keyframes cardIn {
+        to { opacity:1; transform:translateY(0); }
+      }
+      .chain-card:hover { transform:translateY(-4px); border-color:#6ee7a0; box-shadow:0 8px 24px rgba(22,163,74,0.15); }
+      .chain-card-header {
+        padding:16px 18px 12px;
+        display:flex; align-items:center; gap:12px;
+      }
+      .chain-icon { font-size:1.8rem; flex-shrink:0; }
+      .chain-action { font-weight:700; font-size:0.95rem; color:#0b2243; line-height:1.3; }
+      .chain-arrow-row {
+        display:flex; align-items:center; padding:0 18px 0 52px;
+        font-size:0.75rem; color:#16a34a; font-weight:700; letter-spacing:0.05em;
+        margin-bottom:4px;
+      }
+      .chain-body {
+        display:none; padding:0 18px 16px 18px;
+        border-top:1px solid #f0f5f0; background:#f8fdf8;
+      }
+      .chain-card.open .chain-body { display:block; }
+      .chain-card.open .chain-toggle { transform:rotate(180deg); }
+      .chain-toggle { margin-left:auto; font-size:0.9rem; color:#888; transition:transform 0.2s; }
+      .chain-impact {
+        margin-top:12px; display:flex; align-items:flex-start; gap:10px;
+        font-size:0.85rem; color:#1a2e1a; line-height:1.55;
+      }
+      .chain-impact-icon { font-size:1.1rem; flex-shrink:0; margin-top:2px; }
+      .chain-stat {
+        display:inline-block; background:#dcfce7; color:#15803d;
+        font-weight:700; font-size:0.78rem; padding:3px 10px;
+        border-radius:20px; margin-top:8px; letter-spacing:0.03em;
+      }
+
+      /* Impact meter */
+      .impact-meter-wrap {
+        background:linear-gradient(135deg,#0b2243,#1b4332);
+        border-radius:16px; padding:28px 24px; margin-bottom:28px; color:#fff;
+      }
+      .impact-meter-title {
+        font-size:1.1rem; font-weight:700; color:#6ee7a0; margin-bottom:20px;
+        text-align:center; letter-spacing:0.03em;
+      }
+      .impact-bars { display:flex; flex-direction:column; gap:14px; }
+      .impact-bar-row { }
+      .impact-bar-label {
+        display:flex; justify-content:space-between; align-items:center;
+        font-size:0.82rem; margin-bottom:6px;
+      }
+      .impact-bar-label span:first-child { color:rgba(255,255,255,0.8); }
+      .impact-bar-label span:last-child { color:#6ee7a0; font-weight:700; }
+      .impact-bar-track {
+        height:10px; background:rgba(255,255,255,0.1);
+        border-radius:10px; overflow:hidden;
+      }
+      .impact-bar-fill {
+        height:100%; border-radius:10px; width:0%;
+        background:linear-gradient(90deg,#16a34a,#6ee7a0);
+        transition:width 1.2s cubic-bezier(.4,0,.2,1);
+      }
+
+      /* SDG13 targets */
+      .sdg13-targets {
+        display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+        gap:14px; margin-bottom:28px;
+      }
+      .sdg13-target {
+        background:#fff; border-radius:12px; border-left:5px solid #16a34a;
+        padding:16px; opacity:0; transform:translateX(-16px);
+        transition:opacity 0.5s, transform 0.5s;
+      }
+      .sdg13-target.visible { opacity:1; transform:translateX(0); }
+      .sdg13-target-num { font-size:0.7rem; font-weight:700; color:#16a34a; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:5px; }
+      .sdg13-target-text { font-size:0.85rem; color:#1a2e1a; line-height:1.5; font-weight:600; }
+      .sdg13-target-desc { font-size:0.78rem; color:#5c7060; margin-top:5px; line-height:1.45; }
+
+      /* Pledge */
+      .pledge-box {
+        background:linear-gradient(135deg,#dcfce7,#bbf7d0);
+        border-radius:16px; padding:28px 24px; text-align:center; margin-bottom:8px;
+      }
+      .pledge-box h3 { color:#0b2243; font-size:1.15rem; margin-bottom:10px; }
+      .pledge-box p { color:#1b4332; font-size:0.9rem; line-height:1.6; margin-bottom:20px; }
+      .pledge-counter {
+        display:flex; justify-content:center; gap:32px; flex-wrap:wrap;
+      }
+      .p-count { text-align:center; }
+      .p-count .pnum { font-size:2rem; font-weight:900; color:#0b2243; line-height:1; display:block; }
+      .p-count .plbl { font-size:0.7rem; color:#1b4332; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px; display:block; }
+      .pledge-btn {
+        background:#16a34a; color:#fff; border:none; padding:13px 32px;
+        border-radius:999px; font-size:0.95rem; font-weight:700;
+        cursor:pointer; margin-top:20px; font-family:'DM Sans',sans-serif;
+        transition:background 0.2s, transform 0.1s;
+      }
+      .pledge-btn:hover { background:#15803d; transform:translateY(-2px); }
+      .pledge-btn:active { transform:translateY(0); }
+      .pledge-done { display:none; font-size:1.1rem; font-weight:700; color:#15803d; margin-top:12px; }
+    </style>
+
+    <!-- Bridge Banner -->
+    <div class="sdg-bridge">
+      <div class="sdg-pill">
+        <span class="sp-num">12</span>
+        <span class="sp-label">Responsible<br>Consumption</span>
+      </div>
+      <div class="sdg-arrow">⟶</div>
+      <div style="color:#fff;text-align:center;max-width:200px;">
+        <div style="font-size:1.1rem;font-weight:700;color:#6ee7a0;margin-bottom:6px;">Direct Impact</div>
+        <div style="font-size:0.82rem;opacity:0.75;line-height:1.5;">Every SDG 12 action reduces emissions, conserves resources and slows climate breakdown</div>
+      </div>
+      <div class="sdg-arrow">⟶</div>
+      <div class="sdg-pill">
+        <span class="sp-num">13</span>
+        <span class="sp-label">Climate<br>Action</span>
+      </div>
+    </div>
+
+    <!-- Connection Cards -->
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="color:#0b2243;margin-bottom:6px;font-size:1.05rem;">🔗 How Your 10 Actions Directly Advance SDG 13</h3>
+      <p style="font-size:0.85rem;color:#5c7060;margin-bottom:16px;">Click each action to see the climate connection.</p>
+      <div class="chain-grid" id="chainGrid">
+
+        <div class="chain-card" onclick="toggleChain(this)">
+          <div class="chain-card-header">
+            <span class="chain-icon">🖨️</span>
+            <span class="chain-action">Print Less</span>
+            <span class="chain-toggle">▾</span>
+          </div>
+          <div class="chain-arrow-row">↳ SDG 13 impact</div>
+          <div class="chain-body">
+            <div class="chain-impact"><span class="chain-impact-icon">🌳</span><span>Paper production is the 5th largest industrial energy consumer globally. Reducing printing directly lowers CO₂ from deforestation, pulp mills, and transport.</span></div>
+            <div class="chain-impact"><span class="chain-impact-icon">🌡️</span><span>Forests are critical carbon sinks. Less paper demand = more trees standing = more CO₂ absorbed from the atmosphere.</span></div>
+            <span class="chain-stat">1 ream saved = ~2.5 kg CO₂ avoided</span>
+          </div>
+        </div>
+
+        <div class="chain-card" onclick="toggleChain(this)">
+          <div class="chain-card-header">
+            <span class="chain-icon">♻️</span>
+            <span class="chain-action">Use Reusable Items</span>
+            <span class="chain-toggle">▾</span>
+          </div>
+          <div class="chain-arrow-row">↳ SDG 13 impact</div>
+          <div class="chain-body">
+            <div class="chain-impact"><span class="chain-impact-icon">🛢️</span><span>Single-use plastics are derived from fossil fuels. A reusable cup used 50 times replaces 50 plastic cups, each requiring oil extraction and refining.</span></div>
+            <div class="chain-impact"><span class="chain-impact-icon">🔥</span><span>Plastic incineration or landfill decomposition releases methane and CO₂, which are potent greenhouse gases driving climate change.</span></div>
+            <span class="chain-stat">Reusable cup: saves ~70g CO₂ per use</span>
+          </div>
+        </div>
+
+        <div class="chain-card" onclick="toggleChain(this)">
+          <div class="chain-card-header">
+            <span class="chain-icon">🗑️</span>
+            <span class="chain-action">Correct Bin Use</span>
+            <span class="chain-toggle">▾</span>
+          </div>
+          <div class="chain-arrow-row">↳ SDG 13 impact</div>
+          <div class="chain-body">
+            <div class="chain-impact"><span class="chain-impact-icon">⚗️</span><span>Contaminated recycling ends up in landfill. Landfill generates methane, a greenhouse gas 80× more potent than CO₂ over 20 years.</span></div>
+            <div class="chain-impact"><span class="chain-impact-icon">🔄</span><span>Correct sorting enables true recycling, reducing the need to manufacture new materials from raw resources, each of which carries a carbon cost.</span></div>
+            <span class="chain-stat">Ireland's landfill methane = major climate risk</span>
+          </div>
+        </div>
+
+        <div class="chain-card" onclick="toggleChain(this)">
+          <div class="chain-card-header">
+            <span class="chain-icon">⚡</span>
+            <span class="chain-action">Switch Off Devices</span>
+            <span class="chain-toggle">▾</span>
+          </div>
+          <div class="chain-arrow-row">↳ SDG 13 impact</div>
+          <div class="chain-body">
+            <div class="chain-impact"><span class="chain-impact-icon">🏭</span><span>Ireland still generates electricity partly from gas and peat. Every kWh saved is one less unit of fossil fuel burned at a power station.</span></div>
+            <div class="chain-impact"><span class="chain-impact-icon">🌬️</span><span>Phantom loads (standby power) across an office of 100 people can equal the annual carbon footprint of driving 3,000 km.</span></div>
+            <span class="chain-stat">Switching off 1 PC overnight: ~140g CO₂ saved</span>
+          </div>
+        </div>
+
+        <div class="chain-card" onclick="toggleChain(this)">
+          <div class="chain-card-header">
+            <span class="chain-icon">🍱</span>
+            <span class="chain-action">Reduce Food Waste</span>
+            <span class="chain-toggle">▾</span>
+          </div>
+          <div class="chain-arrow-row">↳ SDG 13 impact</div>
+          <div class="chain-body">
+            <div class="chain-impact"><span class="chain-impact-icon">🌾</span><span>Food production accounts for ~26% of global greenhouse gas emissions. Wasted food means all those emissions occurred for nothing.</span></div>
+            <div class="chain-impact"><span class="chain-impact-icon">🔬</span><span>Food rotting in landfill produces methane. If food waste were a country, it would be the 3rd largest emitter of greenhouse gases on Earth.</span></div>
+            <span class="chain-stat">1 kg food waste = ~2.5 kg CO₂ equivalent</span>
+          </div>
+        </div>
+
+        <div class="chain-card" onclick="toggleChain(this)">
+          <div class="chain-card-header">
+            <span class="chain-icon">💻</span>
+            <span class="chain-action">Digital First</span>
+            <span class="chain-toggle">▾</span>
+          </div>
+          <div class="chain-arrow-row">↳ SDG 13 impact</div>
+          <div class="chain-body">
+            <div class="chain-impact"><span class="chain-impact-icon">📦</span><span>Digital workflows eliminate physical materials: paper, ink cartridges, physical storage. All carry manufacturing and transport carbon costs.</span></div>
+            <div class="chain-impact"><span class="chain-impact-icon">🚗</span><span>Digital meetings and e-signatures reduce the need for travel and courier deliveries, cutting transport emissions directly.</span></div>
+            <span class="chain-stat">1 digital meeting = ~1 kg CO₂ vs 50+ kg for travel</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Impact Meter -->
+    <div class="impact-meter-wrap" id="impactMeterWrap">
+      <div class="impact-meter-title">🌡️ If Every Irish Office Employee Did This Daily...</div>
+      <div class="impact-bars">
+        <div class="impact-bar-row">
+          <div class="impact-bar-label"><span>🌳 Trees worth of carbon absorbed</span><span id="bar1val">0%</span></div>
+          <div class="impact-bar-track"><div class="impact-bar-fill" id="bar1" data-target="82"></div></div>
+        </div>
+        <div class="impact-bar-row">
+          <div class="impact-bar-label"><span>♻️ Landfill methane prevented</span><span id="bar2val">0%</span></div>
+          <div class="impact-bar-track"><div class="impact-bar-fill" id="bar2" data-target="68"></div></div>
+        </div>
+        <div class="impact-bar-row">
+          <div class="impact-bar-label"><span>⚡ Energy demand reduction</span><span id="bar3val">0%</span></div>
+          <div class="impact-bar-track"><div class="impact-bar-fill" id="bar3" data-target="55"></div></div>
+        </div>
+        <div class="impact-bar-row">
+          <div class="impact-bar-label"><span>🌍 CO₂ emissions avoided</span><span id="bar4val">0%</span></div>
+          <div class="impact-bar-track"><div class="impact-bar-fill" id="bar4" data-target="74"></div></div>
+        </div>
+      </div>
+      <p style="font-size:0.75rem;opacity:0.5;text-align:center;margin-top:16px;">Estimates based on EPA Ireland (2020), EEA (2025), and IPCC data.</p>
+    </div>
+
+    <!-- SDG 13 Targets -->
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="color:#0b2243;margin-bottom:6px;font-size:1.05rem;">🎯 SDG 13 Targets Your Actions Support</h3>
+      <p style="font-size:0.85rem;color:#5c7060;margin-bottom:16px;">The United Nations SDG 13 has five official targets. Here's how your office habits connect directly to each one.</p>
+      <div class="sdg13-targets" id="sdg13targets">
+        <div class="sdg13-target">
+          <div class="sdg13-target-num">Target 13.1</div>
+          <div class="sdg13-target-text">Strengthen resilience to climate hazards</div>
+          <div class="sdg13-target-desc">Reducing office emissions helps slow the frequency and intensity of extreme weather events affecting Ireland: storms, flooding, and droughts.</div>
+        </div>
+        <div class="sdg13-target">
+          <div class="sdg13-target-num">Target 13.2</div>
+          <div class="sdg13-target-text">Integrate climate measures into policy</div>
+          <div class="sdg13-target-desc">When businesses demonstrate measurable waste reduction, they support Ireland's national climate policy commitments under the Climate Action Plan 2024.</div>
+        </div>
+        <div class="sdg13-target">
+          <div class="sdg13-target-num">Target 13.3</div>
+          <div class="sdg13-target-text">Improve education and awareness on climate</div>
+          <div class="sdg13-target-desc">By completing this course, you are directly contributing to Target 13.3. You are building human capacity to address climate change at an individual and organisational level.</div>
+        </div>
+        <div class="sdg13-target">
+          <div class="sdg13-target-num">Target 13.b</div>
+          <div class="sdg13-target-text">Promote mechanisms for planning capacity</div>
+          <div class="sdg13-target-desc">Embedding SDG 12 practices into Irish office culture builds the institutional capacity needed for Ireland to meet its 2030 and 2050 climate targets.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Interactive CO₂ Calculator ── -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title"><span class="card-icon">🧮</span> Your Personal CO₂ Impact Calculator</div>
+      <p style="font-size:14px;color:var(--ink-light);line-height:1.7;margin-bottom:20px">Adjust the sliders to match your weekly habits. See your estimated annual CO₂ savings update in real time.</p>
+
+      <div id="calc-sliders" style="display:flex;flex-direction:column;gap:20px;margin-bottom:24px;">
+
+        <div class="calc-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label style="font-size:13px;font-weight:600;color:var(--green-dark);">🖨️ Pages NOT printed per week</label>
+            <span class="calc-val" id="val-print" style="background:var(--green-dark);color:var(--cream);padding:3px 12px;border-radius:999px;font-size:13px;font-weight:700;">20</span>
+          </div>
+          <input type="range" min="0" max="200" value="20" step="5" class="calc-slider" oninput="updateCalc('print',this.value)" style="width:100%;accent-color:var(--green-light);">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-muted);margin-top:2px;"><span>0</span><span>200 pages</span></div>
+        </div>
+
+        <div class="calc-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label style="font-size:13px;font-weight:600;color:var(--green-dark);">☕ Disposable cups swapped for reusable per week</label>
+            <span class="calc-val" id="val-cups" style="background:var(--green-dark);color:var(--cream);padding:3px 12px;border-radius:999px;font-size:13px;font-weight:700;">5</span>
+          </div>
+          <input type="range" min="0" max="25" value="5" step="1" class="calc-slider" oninput="updateCalc('cups',this.value)" style="width:100%;accent-color:var(--green-light);">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-muted);margin-top:2px;"><span>0</span><span>25 cups</span></div>
+        </div>
+
+        <div class="calc-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label style="font-size:13px;font-weight:600;color:var(--green-dark);">⚡ Devices switched off at end of day (per week)</label>
+            <span class="calc-val" id="val-devices" style="background:var(--green-dark);color:var(--cream);padding:3px 12px;border-radius:999px;font-size:13px;font-weight:700;">5</span>
+          </div>
+          <input type="range" min="0" max="5" value="5" step="1" class="calc-slider" oninput="updateCalc('devices',this.value)" style="width:100%;accent-color:var(--green-light);">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-muted);margin-top:2px;"><span>0 days</span><span>5 days</span></div>
+        </div>
+
+        <div class="calc-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label style="font-size:13px;font-weight:600;color:var(--green-dark);">💻 In-person meetings replaced with digital per week</label>
+            <span class="calc-val" id="val-meetings" style="background:var(--green-dark);color:var(--cream);padding:3px 12px;border-radius:999px;font-size:13px;font-weight:700;">2</span>
+          </div>
+          <input type="range" min="0" max="10" value="2" step="1" class="calc-slider" oninput="updateCalc('meetings',this.value)" style="width:100%;accent-color:var(--green-light);">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-muted);margin-top:2px;"><span>0</span><span>10 meetings</span></div>
+        </div>
+
+      </div>
+
+      <!-- Result display -->
+      <div id="calc-result" style="background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:var(--radius);padding:24px;text-align:center;color:var(--cream);">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.7;margin-bottom:6px;">Your estimated annual CO₂ savings</div>
+        <div id="calc-total" style="font-family:'DM Serif Display',serif;font-size:52px;color:var(--green-pale);line-height:1;transition:all 0.4s ease;">36</div>
+        <div style="font-size:14px;opacity:0.8;margin-bottom:16px;">kg CO₂ per year</div>
+        <div id="calc-equiv" style="font-size:13px;background:rgba(255,255,255,0.1);border-radius:var(--radius-sm);padding:10px 16px;line-height:1.6;">
+          🌳 That's like planting <strong id="calc-trees">1</strong> tree, or driving <strong id="calc-km">180</strong> km less
+        </div>
+        <div id="calc-badge" style="margin-top:14px;display:inline-block;padding:6px 18px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(255,255,255,0.15);color:var(--green-pale);">🌱 Climate Starter</div>
+      </div>
+
+    </div>
+
+    <!-- Pledge -->
+    <div class="pledge-box">
+      <h3>🌍 Make Your Climate Pledge</h3>
+      <p>You've seen how your daily actions connect to global climate targets. Take the pledge to carry these habits forward. Every office employee who commits multiplies the impact.</p>
+      <div class="pledge-counter">
+        <div class="p-count"><span class="pnum" id="pledgeNum">0</span><span class="plbl">Pledges made</span></div>
+        <div class="p-count"><span class="pnum" id="co2Num">0</span><span class="plbl">kg CO₂ potentially saved/yr</span></div>
+      </div>
+      <button class="pledge-btn" id="pledgeBtn" onclick="makePledge()">🌱 I Pledge to Act</button>
+      <div class="pledge-done" id="pledgeDone">✅ Pledge recorded! You're part of the solution.</div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m3-checklist')">← Daily Checklist</button>
       <button class="nav-btn nav-btn-next" onclick="goTo('m3-quiz')">Take Quiz 3 →</button>
     </div>
   </div>
 </div>
+
+<script>
+// ── CO₂ Calculator ──
+const calcState = { print: 20, cups: 5, devices: 5, meetings: 2 };
+
+function updateCalc(key, val) {
+  calcState[key] = parseInt(val);
+  document.getElementById('val-' + key).textContent = val;
+  // CO₂ factors (kg per unit per year, based on 48 working weeks)
+  // print: 5g per page = 0.005 kg; cups: 70g per cup = 0.07 kg; devices: 140g per day = 0.14 kg; meetings: 1kg per meeting avoided
+  const weeks = 48;
+  const co2 = Math.round(
+    calcState.print  * 0.005 * weeks +
+    calcState.cups   * 0.07  * weeks +
+    calcState.devices* 0.14  * weeks +
+    calcState.meetings * 1.0 * weeks
+  );
+  document.getElementById('calc-total').textContent = co2;
+  document.getElementById('calc-trees').textContent = Math.max(1, Math.round(co2 / 21));
+  document.getElementById('calc-km').textContent = Math.round(co2 / 0.21);
+  // Badge tiers
+  const badge = document.getElementById('calc-badge');
+  if (co2 >= 300)      { badge.textContent = '🏆 Climate Champion'; badge.style.background = 'rgba(244,162,97,0.35)'; badge.style.color = '#f4a261'; }
+  else if (co2 >= 150) { badge.textContent = '🌿 Climate Leader';   badge.style.background = 'rgba(82,183,136,0.3)';  badge.style.color = '#b7e4c7'; }
+  else if (co2 >= 60)  { badge.textContent = '🌱 Climate Starter';  badge.style.background = 'rgba(255,255,255,0.15)';badge.style.color = 'var(--green-pale)'; }
+  else                  { badge.textContent = '💡 Getting Started'; badge.style.background = 'rgba(255,255,255,0.08)';badge.style.color = 'rgba(255,255,255,0.5)'; }
+}
+
+// Chain card toggle
+function toggleChain(card) {
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.chain-card').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
+}
+
+// Animate cards in when screen visible
+function animateSDG13Screen() {
+  // Chain cards
+  document.querySelectorAll('.chain-card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.08) + 's';
+    card.classList.add('visible');
+  });
+  // SDG13 targets
+  document.querySelectorAll('.sdg13-target').forEach((t, i) => {
+    setTimeout(() => t.classList.add('visible'), 300 + i * 100);
+  });
+  // Impact bars
+  setTimeout(() => {
+    document.querySelectorAll('.impact-bar-fill').forEach((bar, i) => {
+      const target = bar.getAttribute('data-target');
+      bar.style.width = target + '%';
+      const valEl = document.getElementById('bar' + (i+1) + 'val');
+      let current = 0;
+      const interval = setInterval(() => {
+        current = Math.min(current + 2, parseInt(target));
+        if (valEl) valEl.textContent = current + '%';
+        if (current >= parseInt(target)) clearInterval(interval);
+      }, 24);
+    });
+  }, 400);
+  // Pledge counter animate
+  animatePledgeCounters();
+}
+
+// Pledge
+let pledgeMade = localStorage.getItem('sdg13_pledge') === '1';
+let pledgeCount = parseInt(localStorage.getItem('sdg13_pledge_count') || '247');
+
+function animatePledgeCounters() {
+  const pEl = document.getElementById('pledgeNum');
+  const cEl = document.getElementById('co2Num');
+  if (!pEl || !cEl) return;
+  let p = 0, c = 0;
+  const interval = setInterval(() => {
+    p = Math.min(p + 3, pledgeCount);
+    c = Math.min(c + Math.ceil(pledgeCount * 85 / pledgeCount * 3 / pledgeCount), pledgeCount * 85);
+    pEl.textContent = p;
+    cEl.textContent = (p * 85).toLocaleString();
+    if (p >= pledgeCount) clearInterval(interval);
+  }, 20);
+  if (pledgeMade) {
+    document.getElementById('pledgeBtn').style.display = 'none';
+    document.getElementById('pledgeDone').style.display = 'block';
+  }
+}
+
+function makePledge() {
+  if (pledgeMade) return;
+  pledgeMade = true;
+  pledgeCount++;
+  localStorage.setItem('sdg13_pledge', '1');
+  localStorage.setItem('sdg13_pledge_count', pledgeCount);
+  document.getElementById('pledgeBtn').style.display = 'none';
+  document.getElementById('pledgeDone').style.display = 'block';
+  document.getElementById('pledgeNum').textContent = pledgeCount;
+  document.getElementById('co2Num').textContent = (pledgeCount * 85).toLocaleString();
+}
+
+// Hook into existing goTo to trigger animations
+const _origGoTo = typeof goTo === 'function' ? goTo : null;
+document.addEventListener('DOMContentLoaded', () => {
+  const origGoTo = window.goTo;
+  window.goTo = function(id, el) {
+    origGoTo(id, el);
+    if (id === 'm3-sdg13') {
+      setTimeout(animateSDG13Screen, 100);
+    }
+  };
+});
+</script>
 
 <!-- ============================= M3: QUIZ ============================= -->
 <div id="screen-m3-quiz" class="screen">
@@ -3018,7 +3510,7 @@ window.kRestart = kRestart;
   <div class="content-body">
     <div class="quiz-container" id="quiz3-container"></div>
     <div class="nav-btns" id="quiz3-nav" style="display:none">
-      <button class="nav-btn nav-btn-prev" onclick="goTo('m3-checklist')">← Checklist</button>
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m3-sdg13')">← SDG 12 → SDG 13</button>
       <button class="nav-btn nav-btn-next" onclick="goTo('m4-kpi')">Module 4: Measurement →</button>
     </div>
   </div>
@@ -3317,7 +3809,7 @@ const state = {
   finalAssessmentPassed: false
 };
 
-const SCREENS = ['intro','m1-intro','m1-stats','m1-eccsr','m1-quiz','m2-hierarchy','m2-streams','m2-scenario','m2-match','m2-quiz','m3-actions','m3-cases','m3-checklist','m3-quiz','m4-kpi','m4-plan','m4-final','m4-thankyou','m4-cert'];
+const SCREENS = ['intro','m1-intro','m1-stats','m1-eccsr','m1-quiz','m2-hierarchy','m2-streams','m2-scenario','m2-match','m2-quiz','m3-actions','m3-cases','m3-checklist','m3-sdg13','m3-quiz','m4-kpi','m4-plan','m4-final','m4-thankyou','m4-cert'];
 
 // ===================== SPLASH =====================
 function startCourse() {
