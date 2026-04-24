@@ -1207,6 +1207,101 @@ body {
   0% { transform:translateY(-20px) rotate(0deg); opacity:1; }
   100% { transform:translateY(100vh) rotate(720deg); opacity:0; }
 }
+
+/* ── MODULE LEARNING SUMMARY ── */
+.learning-summary {
+  background: linear-gradient(135deg, #1b4332 0%, #0b2243 100%);
+  border-radius: 18px;
+  padding: 32px 28px 28px;
+  margin: 0 0 24px 0;
+  position: relative;
+  overflow: hidden;
+}
+.learning-summary::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(110,231,160,0.12) 0%, transparent 70%);
+  top: -80px; right: -60px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ls-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(110,231,160,0.15);
+  border: 1px solid rgba(110,231,160,0.3);
+  color: #6ee7a0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.ls-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+.ls-points {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.ls-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(110,231,160,0.15);
+  border-radius: 10px;
+  padding: 13px 15px;
+  opacity: 0;
+  transform: translateX(-14px);
+  animation: lsPointIn 0.45s ease forwards;
+}
+.ls-point:nth-child(1) { animation-delay: 0.05s; }
+.ls-point:nth-child(2) { animation-delay: 0.15s; }
+.ls-point:nth-child(3) { animation-delay: 0.25s; }
+.ls-point:nth-child(4) { animation-delay: 0.35s; }
+.ls-point:nth-child(5) { animation-delay: 0.45s; }
+@keyframes lsPointIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+.ls-point-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ls-point-text {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.6;
+}
+.ls-point-text strong {
+  color: #6ee7a0;
+  font-weight: 700;
+}
+.ls-ready {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(110,231,160,0.12);
+  border: 1px solid rgba(110,231,160,0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.ls-ready-text {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
 </style>
 </head>
 <body>
@@ -1259,6 +1354,9 @@ body {
   <div class="sidebar-item" data-screen="m1-eccsr" onclick="goTo('m1-eccsr',this)">
     <span class="s-icon">🔍</span> ECCSR Framework <span class="s-badge"></span>
   </div>
+  <div class="sidebar-item" data-screen="m1-learning" onclick="goTo('m1-learning',this)">
+    <span class="s-icon">✅</span> Knowledge Checkpoint <span class="s-badge"></span>
+  </div>
   <div class="sidebar-item" data-screen="m1-quiz" onclick="goTo('m1-quiz',this)">
     <span class="s-icon">📝</span> Quiz 1 <span class="s-badge"></span>
   </div>
@@ -1275,6 +1373,9 @@ body {
   </div>
   <div class="sidebar-item" data-screen="m2-match" onclick="goTo('m2-match',this)">
     <span class="s-icon">🧩</span> Matching Game <span class="s-badge"></span>
+  </div>
+  <div class="sidebar-item" data-screen="m2-learning" onclick="goTo('m2-learning',this)">
+    <span class="s-icon">✅</span> Knowledge Checkpoint <span class="s-badge"></span>
   </div>
   <div class="sidebar-item" data-screen="m2-quiz" onclick="goTo('m2-quiz',this)">
     <span class="s-icon">📝</span> Quiz 2 <span class="s-badge"></span>
@@ -1293,6 +1394,9 @@ body {
   <div class="sidebar-item" data-screen="m3-sdg13" onclick="goTo('m3-sdg13',this)">
     <span class="s-icon">🌡️</span> SDG 12 → SDG 13 <span class="s-badge"></span>
   </div>
+  <div class="sidebar-item" data-screen="m3-learning" onclick="goTo('m3-learning',this)">
+    <span class="s-icon">✅</span> Knowledge Checkpoint <span class="s-badge"></span>
+  </div>
   <div class="sidebar-item" data-screen="m3-quiz" onclick="goTo('m3-quiz',this)">
     <span class="s-icon">📝</span> Quiz 3 <span class="s-badge"></span>
   </div>
@@ -1306,6 +1410,9 @@ body {
   </div>
   <div class="sidebar-item" data-screen="m4-final" onclick="goTo('m4-final',this)">
     <span class="s-icon">🏆</span> Final Assessment <span class="s-badge"></span>
+  </div>
+  <div class="sidebar-item" data-screen="m4-takeaway" onclick="goTo('m4-takeaway',this)">
+    <span class="s-icon">🌍</span> Key Takeaways <span class="s-badge"></span>
   </div>
   <div class="sidebar-item" data-screen="m4-thankyou" onclick="goTo('m4-thankyou',this)">
     <span class="s-icon">💚</span> Thank You <span class="s-badge"></span>
@@ -1567,6 +1674,52 @@ body {
   </div>
 </div>
 
+
+<!-- ============================= M1: LEARNING SUMMARY ============================= -->
+<div id="screen-m1-learning" class="screen">
+  <div class="module-header">
+    <div class="module-badge">✅ Module 1 · Knowledge Checkpoint</div>
+    <h1>Knowledge Checkpoint</h1>
+    <p>Before you test yourself, take a moment to consolidate everything from Module 1   your foundation for the rest of this course.</p>
+  </div>
+  <div class="content-body">
+    <div class="learning-summary" id="ls-m1">
+      <div class="ls-badge">✅ Module 1 Checkpoint</div>
+      <div class="ls-title">Context &amp; SDG 12   5 Key Learnings</div>
+      <div class="ls-points">
+        <div class="ls-point">
+          <span class="ls-point-icon">🌍</span>
+          <div class="ls-point-text"><strong>SDG 12 is your framework.</strong> Responsible Consumption and Production is a UN goal that connects your individual office habits directly to a global sustainability agenda adopted by 193 countries.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🇮🇪</span>
+          <div class="ls-point-text"><strong>Ireland has a waste problem.</strong> Irish offices generate significant volumes of paper, plastic, food and e-waste annually : and are legally and ethically obligated to address it under national and EU law.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">💨</span>
+          <div class="ls-point-text"><strong>Every product has a lifecycle cost.</strong> From carbon emissions to resource depletion, the office items you use daily carry environmental consequences before they even reach your desk.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">⚖️</span>
+          <div class="ls-point-text"><strong>The ECCSR framework structures your response.</strong> Eliminate → Cut → Change → Sustain → Report gives you a practical decision-making tool for any waste challenge you encounter at work.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🔗</span>
+          <div class="ls-point-text"><strong>Individual actions scale.</strong> When every employee in an Irish office applies SDG 12 thinking, the collective impact is measurable : in tonnes of waste diverted, kilowatts saved and emissions avoided.</div>
+        </div>
+      </div>
+      <div class="ls-ready">
+        <span style="font-size:1.2rem">🎯</span>
+        <span class="ls-ready-text">Ready to test yourself? 5 questions   you need 60% to pass and unlock Module 2.</span>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m1-eccsr')">← ECCSR Framework</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m1-quiz')">Take Quiz 1 →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============================= M1: QUIZ ============================= -->
 <div id="screen-m1-quiz" class="screen">
   <div class="module-header">
@@ -1617,7 +1770,7 @@ body {
       <div class="card-title"><span class="card-icon">✍️</span> Reflection Activity</div>
       <p style="font-size:14px;color:var(--ink-light);line-height:1.7;margin-bottom:16px">Think of one action from the 10 Simple Actions. In the box below, describe how it fits the ECCSR model: which principles does it most strongly represent? What could you do to strengthen it?</p>
       <select class="form-select" id="eccsrActionSelect" style="margin-bottom:14px">
-        <option value="">— Choose an action —</option>
+        <option value="">  Choose an action  </option>
         <option>Print Less: set printer to duplex</option>
         <option>Use Reusable Items: cup, bottle, lunchbox</option>
         <option>Correct Bin Use: learn and follow the recycling system</option>
@@ -1636,7 +1789,7 @@ body {
 
     <div class="nav-btns">
       <button class="nav-btn nav-btn-prev" onclick="goTo('m1-stats')">← Ireland vs EU Stats</button>
-      <button class="nav-btn nav-btn-next" onclick="goTo('m1-quiz')">Take Quiz 1 →</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m1-learning')">Module 1 Summary →</button>
     </div>
   </div>
 </div>
@@ -2190,8 +2343,54 @@ setTimeout(()=>{ setSpeechEmma('Hi! I\'m Emma. Follow me through my working day 
       <div id="matchResult" style="display:none;margin-top:16px" class="info-box"></div>
       <div class="nav-btns">
         <button class="nav-btn nav-btn-prev" onclick="resetMatch()">↺ Reset</button>
-        <button class="nav-btn nav-btn-next" id="matchNextBtn" onclick="goTo('m2-quiz')" style="display:none">Take Quiz 2 →</button>
+        <button class="nav-btn nav-btn-next" id="matchNextBtn" onclick="goTo('m2-learning')" style="display:none">Module 2 Summary →</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================= M2: LEARNING SUMMARY ============================= -->
+<div id="screen-m2-learning" class="screen">
+  <div class="module-header">
+    <div class="module-badge">✅ Module 2 · Knowledge Checkpoint</div>
+    <h1>Knowledge Checkpoint</h1>
+    <p>You've explored the waste hierarchy, identified the main waste streams and tested your judgement in real office scenarios. Here's what to carry forward.</p>
+  </div>
+  <div class="content-body">
+    <div class="learning-summary" id="ls-m2">
+      <div class="ls-badge">✅ Module 2 Checkpoint</div>
+      <div class="ls-title">Waste Sources &amp; Hierarchy   5 Key Learnings</div>
+      <div class="ls-points">
+        <div class="ls-point">
+          <span class="ls-point-icon">🔺</span>
+          <div class="ls-point-text"><strong>Prevention beats recycling every time.</strong> The waste hierarchy places Prevention at the top for a reason : stopping waste before it's created is always more effective than managing it afterwards.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">📄</span>
+          <div class="ls-point-text"><strong>Paper is the biggest Irish office waste stream.</strong> The average Irish office worker uses 10,000 sheets of paper per year. Digital-first habits are the single highest-impact change most employees can make immediately.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🗑️</span>
+          <div class="ls-point-text"><strong>Contamination destroys recycling value.</strong> One incorrect item in a recycling bin can invalidate the entire bag. Knowing your local waste stream rules is not optional : it's the difference between recycling and landfill.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🔋</span>
+          <div class="ls-point-text"><strong>E-waste needs specialist disposal.</strong> Electronics contain hazardous materials and valuable recoverable metals. They must never go into general waste : use WEEE collection points or manufacturer take-back programmes.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🧠</span>
+          <div class="ls-point-text"><strong>Scenario thinking builds real habits.</strong> The office situations you worked through : printer defaults, kitchen bins, meeting rooms : are the exact moments where good waste decisions happen or don't happen.</div>
+        </div>
+      </div>
+      <div class="ls-ready">
+        <span style="font-size:1.2rem">🎯</span>
+        <span class="ls-ready-text">5 scenario-based questions ahead   apply your hierarchy knowledge to real office situations.</span>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m2-match')">← Matching Exercise</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m2-quiz')">Take Quiz 2 →</button>
     </div>
   </div>
 </div>
@@ -3385,7 +3584,7 @@ window.kRestart = kRestart;
 
     <div class="nav-btns">
       <button class="nav-btn nav-btn-prev" onclick="goTo('m3-checklist')">← Daily Checklist</button>
-      <button class="nav-btn nav-btn-next" onclick="goTo('m3-quiz')">Take Quiz 3 →</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m3-learning')">Module 3 Summary →</button>
     </div>
   </div>
 </div>
@@ -3500,6 +3699,52 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+
+<!-- ============================= M3: LEARNING SUMMARY ============================= -->
+<div id="screen-m3-learning" class="screen">
+  <div class="module-header">
+    <div class="module-badge">✅ Module 3 · Knowledge Checkpoint</div>
+    <h1>Knowledge Checkpoint</h1>
+    <p>Module 3 turned knowledge into action   10 practical steps, real case studies, a daily checklist and the connection to global climate goals. Here's your summary.</p>
+  </div>
+  <div class="content-body">
+    <div class="learning-summary" id="ls-m3">
+      <div class="ls-badge">✅ Module 3 Checkpoint</div>
+      <div class="ls-title">Practical Actions   5 Key Learnings</div>
+      <div class="ls-points">
+        <div class="ls-point">
+          <span class="ls-point-icon">⚡</span>
+          <div class="ls-point-text"><strong>10 actions, zero budget required.</strong> Every practical step in this module : from printing defaults to reusable cups to correct bin use : can be started today without management approval or spending.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🏢</span>
+          <div class="ls-point-text"><strong>Real Irish offices have done it.</strong> The case studies showed that waste reduction in Irish workplaces isn't theoretical : organisations have achieved measurable results through exactly the habits you've just learned.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">☑️</span>
+          <div class="ls-point-text"><strong>The daily checklist builds automaticity.</strong> Behaviour change research shows that daily repetition of small actions over 21 days creates habits that no longer require conscious effort. Your checklist is that bridge.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🌡️</span>
+          <div class="ls-point-text"><strong>SDG 12 actions directly advance SDG 13.</strong> Reducing paper saves forests. Cutting food waste reduces methane. Switching off devices lowers grid demand. Your office actions have a measurable climate impact beyond the bin.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🔄</span>
+          <div class="ls-point-text"><strong>You are part of a system.</strong> No single action changes everything : but every Irish office employee who adopts these habits multiplies the impact. Collective behaviour is where environmental change actually happens.</div>
+        </div>
+      </div>
+      <div class="ls-ready">
+        <span style="font-size:1.2rem">🎯</span>
+        <span class="ls-ready-text">Final module quiz next   5 questions on everyday waste choices. Apply everything from Modules 1–3.</span>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m3-sdg13')">← SDG 12 → SDG 13</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m3-quiz')">Take Quiz 3 →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============================= M3: QUIZ ============================= -->
 <div id="screen-m3-quiz" class="screen">
   <div class="module-header">
@@ -3612,7 +3857,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="form-label"><span class="f-step">1</span> Waste Stream Focus</div>
           <div class="form-hint">Close your eyes: picture your office right now. What do you see most of in the bins? That's your waste stream.</div>
           <select class="form-select" id="plan1">
-            <option value="">— Select your focus waste stream —</option>
+            <option value="">  Select your focus waste stream  </option>
             <option>Paper: printing and document waste</option>
             <option>Packaging: single-use items and delivery waste</option>
             <option>E-Waste: old devices and electronics</option>
@@ -3661,8 +3906,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
 
+
     <div class="nav-btns">
-      <button class="nav-btn nav-btn-prev" onclick="goTo('m4-kpi')">← KPI Tracker</button>
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m4-kpi')">Back to KPI Tracker</button>
       <button class="nav-btn nav-btn-next" onclick="goTo('m4-final')">Final Assessment →</button>
     </div>
   </div>
@@ -3679,7 +3925,53 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="quiz-container" id="quiz4-container"></div>
     <div class="nav-btns" id="quiz4-nav" style="display:none">
       <button class="nav-btn nav-btn-prev" onclick="goTo('m4-plan')">← Action Plan</button>
-      <button class="nav-btn nav-btn-next" onclick="goTo('m4-thankyou')">Thank You &amp; Feedback →</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m4-takeaway')">Key Takeaways →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================= M4: KEY TAKEAWAYS ============================= -->
+<div id="screen-m4-takeaway" class="screen">
+  <div class="module-header">
+    <div class="module-badge">🌍 Module 4 · Course Summary</div>
+    <h1>Key Takeaways</h1>
+    <p>You have completed all four modules and the final assessment. Here is everything you have learned, brought together in one place.</p>
+  </div>
+  <div class="content-body">
+    <div class="learning-summary" id="ls-m4">
+      <div class="ls-badge">📚 All 4 Modules Summary</div>
+      <div class="ls-title">Your Complete Learning Journey</div>
+      <div class="ls-points">
+        <div class="ls-point">
+          <span class="ls-point-icon">🌍</span>
+          <div class="ls-point-text"><strong>Module 1: Context and SDG 12.</strong> You understand why office waste matters globally and how Ireland's workplaces connect to the UN 2030 agenda. The ECCSR framework gives you a structured tool for every waste decision you face at work.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🔺</span>
+          <div class="ls-point-text"><strong>Module 2: Waste Sources and Hierarchy.</strong> You can identify every major office waste stream, apply the hierarchy correctly (Prevention first, always) and avoid contamination mistakes that send recyclables straight to landfill.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">⚡</span>
+          <div class="ls-point-text"><strong>Module 3: Practical Actions.</strong> You have 10 concrete habits ready to use today, a daily checklist to build them into routine, and the knowledge that your actions reach beyond the office bin all the way to SDG 13 and Ireland's climate targets.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">📊</span>
+          <div class="ls-point-text"><strong>Module 4: Measure and Act.</strong> You can track what matters using KPIs, set targets that stick and use your personal action plan to turn everything you have learned into a real daily commitment.</div>
+        </div>
+        <div class="ls-point">
+          <span class="ls-point-icon">🌱</span>
+          <div class="ls-point-text"><strong>The bigger picture.</strong> Every Irish office that embeds these habits reduces national waste, cuts emissions and supports EU targets. Sustainability and productivity are not in conflict. They reinforce each other.</div>
+        </div>
+      </div>
+      <div class="ls-ready">
+        <span style="font-size:1.2rem">🎓</span>
+        <span class="ls-ready-text">Your certificate is waiting. You have earned it.</span>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m4-final')">Back to Final Assessment</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo('m4-thankyou')">Thank You Page →</button>
     </div>
   </div>
 </div>
@@ -3729,7 +4021,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 
     <div class="nav-btns">
-      <button class="nav-btn nav-btn-prev" onclick="goTo('m4-final')">← Final Assessment</button>
+      <button class="nav-btn nav-btn-prev" onclick="goTo('m4-takeaway')">Back to Key Takeaways</button>
       <button class="nav-btn nav-btn-next" onclick="goTo('m4-cert')">Get My Certificate 🎓 →</button>
     </div>
   </div>
@@ -3826,7 +4118,7 @@ const state = {
   finalAssessmentPassed: false
 };
 
-const SCREENS = ['intro','m1-intro','m1-stats','m1-eccsr','m1-quiz','m2-hierarchy','m2-streams','m2-scenario','m2-match','m2-quiz','m3-actions','m3-cases','m3-checklist','m3-sdg13','m3-quiz','m4-kpi','m4-plan','m4-final','m4-thankyou','m4-cert'];
+const SCREENS = ['intro','m1-intro','m1-stats','m1-eccsr','m1-learning','m1-quiz','m2-hierarchy','m2-streams','m2-scenario','m2-match','m2-learning','m2-quiz','m3-actions','m3-cases','m3-checklist','m3-sdg13','m3-learning','m3-quiz','m4-kpi','m4-plan','m4-final','m4-takeaway','m4-thankyou','m4-cert'];
 
 // ===================== SPLASH =====================
 function startCourse() {
@@ -5152,7 +5444,7 @@ function roboSend() {
 function downloadCert() {
   const name = (document.getElementById('certName').value || 'Learner').trim();
   const date = document.getElementById('certDate').textContent || new Date().toLocaleDateString('en-IE',{year:'numeric',month:'long',day:'numeric'});
-  const score = document.getElementById('certScore').textContent || '—';
+  const score = document.getElementById('certScore').textContent || ' ';
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -5224,6 +5516,7 @@ function downloadCert() {
   </div>
 </div>
 <script>window.onload=function(){window.print();}<\/script>
+
 </body>
 </html>`;
 
